@@ -1,6 +1,6 @@
 import React, { useState, useRef } from "react";
-import { ArrowRight, AlertCircle, User, Building2, Mail, Phone, MapPin, FileText, Receipt } from "lucide-react";
-import { SALUTATIONS, SOURCE_OPTIONS } from "@/lib/nomination-data";
+import { ArrowRight, AlertCircle, User, Building2, Phone, Receipt } from "lucide-react";
+import { SALUTATIONS } from "@/lib/nomination-data";
 
 export interface RegistrationData {
   salutation: string;

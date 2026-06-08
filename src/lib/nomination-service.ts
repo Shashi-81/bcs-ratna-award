@@ -132,7 +132,7 @@ export async function finaliseSubmission(
       .upload(path, entry.photo_file, { upsert: true });
 
     if (uploadError) {
-      console.warn(`Photo upload failed for entry ${i}: ${uploadError.message}`);
+      // Photo upload failed — skip, continue without photo
       continue;
     }
 
@@ -161,7 +161,7 @@ export async function finaliseSubmission(
         .getPublicUrl(path);
       payment_screenshot_url = urlData?.publicUrl;
     } else {
-      console.warn(`Screenshot upload failed: ${ssError.message}`);
+      // Screenshot upload failed — skip
     }
   }
 
