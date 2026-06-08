@@ -94,6 +94,7 @@ function HomePage() {
       <Videos />
       <Chairman />
       <Partners />
+      <StatsBottom />
       <CtaBanner />
       <Footer />
     </div>
@@ -726,6 +727,39 @@ function Partners() {
                   display: "block",
                 }}
               />
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function StatsBottom() {
+  const stats = [
+    { num: "14+", label: "Years of Excellence" },
+    { num: "500+", label: "Awards Given" },
+    { num: "200+", label: "Industry Partners" },
+    { num: "50+", label: "Award Categories" },
+  ];
+  return (
+    <section className="py-20 bg-[#080808] border-t border-[#C9A84C]/15">
+      <div className="max-w-7xl mx-auto px-6">
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-8 md:gap-12 text-center">
+          {stats.map((s, i) => (
+            <div key={s.label} className="group">
+              <div
+                className="font-display font-bold text-gold-gradient leading-none"
+                style={{ fontSize: "clamp(3rem, 8vw, 5.5rem)" }}
+              >
+                {s.num}
+              </div>
+              <div className="font-cinzel text-[11px] md:text-xs text-white/55 mt-3 tracking-widest uppercase">
+                {s.label}
+              </div>
+              {i < stats.length - 1 && (
+                <div className="hidden md:block absolute right-0 top-1/2 -translate-y-1/2 h-12 w-px bg-[#C9A84C]/20" />
+              )}
             </div>
           ))}
         </div>
