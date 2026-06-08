@@ -85,14 +85,13 @@ function HomePage() {
       <Navigation />
       <Hero />
       <BannerImage />
-      <Stats />
       <About />
-      <Categories />
       <Gallery />
-      <WhyUs />
+      <Categories />
       <VIPs />
       <Videos />
       <Chairman />
+      <WhyUs />
       <Partners />
       <StatsBottom />
       <CtaBanner />
@@ -104,7 +103,7 @@ function HomePage() {
 function Hero() {
   const { d, h, m, s, expired } = useCountdown();
   return (
-    <section className="relative min-h-screen flex items-center justify-center pt-[80px] md:pt-[180px]" style={{ overflow: "hidden" }}>
+    <section className="relative min-h-screen flex items-center justify-center pt-[72px]" style={{ overflow: "hidden" }}>
       <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(201,168,76,0.15),transparent_60%)]" />
       <div
         className="absolute inset-0 opacity-30"
@@ -119,15 +118,14 @@ function Hero() {
       <div className="absolute inset-0 bg-gradient-to-b from-black/70 via-black/60 to-black" />
       <GoldParticles count={35} />
 
-      {/* Trophy LEFT — gentle sway */}
-      <div className="hero-trophy-wrap" style={{
+      {/* Trophy LEFT — hidden on mobile */}
+      <div className="hidden md:flex hero-trophy-wrap" style={{
         position: "absolute",
         left: "3%",
         top: "50%",
         transform: "translateY(-50%)",
         zIndex: 2,
         pointerEvents: "none",
-        display: "flex",
         alignItems: "center",
         justifyContent: "center",
       }}>
@@ -146,15 +144,14 @@ function Hero() {
         />
       </div>
 
-      {/* Trophy RIGHT — gentle sway */}
-      <div className="hero-trophy-wrap" style={{
+      {/* Trophy RIGHT — hidden on mobile */}
+      <div className="hidden md:flex hero-trophy-wrap" style={{
         position: "absolute",
         right: "3%",
         top: "50%",
         transform: "translateY(-50%)",
         zIndex: 2,
         pointerEvents: "none",
-        display: "flex",
         alignItems: "center",
         justifyContent: "center",
       }}>
@@ -173,9 +170,9 @@ function Hero() {
         />
       </div>
 
-      <div className="hero-content max-w-5xl mx-auto px-6 text-center">
+      <div className="hero-content max-w-5xl mx-auto px-5 text-center relative z-10">
         <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8 }}>
-          <span className="inline-block font-cinzel text-[10px] sm:text-xs text-[#C9A84C] border border-[#C9A84C]/40 rounded-full px-4 py-2 mb-8">
+          <span className="inline-block font-cinzel text-[10px] sm:text-xs text-[#C9A84C] border border-[#C9A84C]/40 rounded-full px-3 py-1.5 mb-5 sm:mb-8">
             🏆 Since 2010 · India's Premier Media Award
           </span>
         </motion.div>
@@ -183,7 +180,7 @@ function Hero() {
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 1, delay: 0.2 }}
-          className="font-display font-black text-5xl sm:text-7xl lg:text-8xl text-gold-gradient leading-[1.05] tracking-tight"
+          className="font-display font-black text-4xl sm:text-7xl lg:text-8xl text-gold-gradient leading-[1.05] tracking-tight"
         >
           BCS RATNA<br/>AWARD
         </motion.h1>
@@ -191,32 +188,32 @@ function Hero() {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 1, delay: 0.5 }}
-          className="font-display italic text-lg sm:text-2xl text-white/85 mt-6 max-w-3xl mx-auto"
+          className="font-display italic text-base sm:text-2xl text-white/85 mt-4 sm:mt-6 max-w-3xl mx-auto leading-snug"
         >
-          Celebrating Excellence in Broadcasting, Digital Media &amp; Technology
+          Celebrating Excellence in Broadcasting,<br className="sm:hidden" /> Digital Media &amp; Technology
         </motion.p>
 
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 1, delay: 0.8 }}
-          className="mt-12"
+          className="mt-8 sm:mt-12"
         >
-          <p className="font-cinzel text-xs text-[#C9A84C] mb-4">The 16th Edition · June 30, 2026</p>
+          <p className="font-cinzel text-[10px] sm:text-xs text-[#C9A84C] mb-3">The 16th Edition · June 30, 2026</p>
           {expired ? (
-            <div className="glass-card px-8 py-8">
-              <p className="font-cinzel text-2xl sm:text-3xl text-[#C9A84C] font-bold">REGISTRATIONS CLOSED</p>
+            <div className="glass-card px-8 py-6">
+              <p className="font-cinzel text-xl sm:text-3xl text-[#C9A84C] font-bold">REGISTRATIONS CLOSED</p>
             </div>
           ) : (
             <>
-              <p className="font-cinzel text-xs text-[#C9A84C] mb-3">REGISTRATION CLOSES</p>
-              <div className="flex justify-center gap-3 sm:gap-5">
+              <p className="font-cinzel text-[10px] sm:text-xs text-[#C9A84C] mb-3">REGISTRATION CLOSES</p>
+              <div className="flex justify-center gap-2 sm:gap-5">
                 {[["Days", d], ["Hours", h], ["Minutes", m], ["Seconds", s]].map(([label, val]) => (
-                  <div key={label as string} className="glass-card px-3 py-3 sm:px-5 sm:py-4 min-w-[68px] sm:min-w-[88px]">
+                  <div key={label as string} className="glass-card px-3 py-3 sm:px-5 sm:py-4 min-w-[64px] sm:min-w-[88px]">
                     <div className="font-display text-2xl sm:text-4xl text-gold-gradient font-bold">
                       {String(val).padStart(2, "0")}
                     </div>
-                    <div className="font-cinzel text-[9px] text-white/60 mt-1">{label}</div>
+                    <div className="font-cinzel text-[8px] sm:text-[9px] text-white/60 mt-1">{label}</div>
                   </div>
                 ))}
               </div>
@@ -228,9 +225,9 @@ function Hero() {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 1, delay: 1.2 }}
-          className="mt-12 flex flex-col sm:flex-row gap-4 justify-center"
+          className="mt-8 sm:mt-12 flex flex-col sm:flex-row gap-3 justify-center"
         >
-          <Link to="/categories" className="btn-outline-gold">Explore Categories</Link>
+          <Link to="/categories" className="btn-outline-gold text-sm px-6 py-3">Explore Categories</Link>
         </motion.div>
       </div>
     </section>
@@ -239,15 +236,14 @@ function Hero() {
 
 function BannerImage() {
   return (
-    <section className="py-6 lg:py-8">
-      <div className="max-w-7xl mx-auto px-6">
-        <Link to="/nominate" className="block overflow-hidden rounded-[1.5rem] shadow-[0_22px_70px_rgba(0,0,0,0.45)]">
+    <section className="py-4 sm:py-6 lg:py-8">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6">
+        <Link to="/nominate" className="block overflow-hidden rounded-xl sm:rounded-[1.5rem] shadow-[0_22px_70px_rgba(0,0,0,0.45)]">
           <img
             src="/assets/banner.jpeg"
             alt="BCS Ratna Award banner"
             className="w-full h-auto object-contain block"
             loading="eager"
-            style={{ display: "block" }}
           />
         </Link>
       </div>
@@ -278,7 +274,7 @@ function Stats() {
 
 function About() {
   return (
-    <section className="py-24 md:py-32">
+    <section className="py-12 md:py-20">
       <div className="max-w-7xl mx-auto px-6 grid lg:grid-cols-2 gap-16 items-center">
         <div className="relative">
           <div className="absolute -inset-3 bg-gold-gradient opacity-50 blur-2xl" />
@@ -313,7 +309,7 @@ function About() {
 
 function Categories() {
   return (
-    <section className="py-24 md:py-32 bg-[#0d0d0d]">
+    <section className="py-12 md:py-20 bg-[#0d0d0d]">
       <div className="max-w-7xl mx-auto px-6">
         <SectionTitle eyebrow="Honours" title="Award |Categories|" subtitle="Six pillars of recognition across India's broadcasting and digital ecosystem." />
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -362,7 +358,7 @@ function Gallery() {
   }, [openIndex]);
 
   return (
-    <section className="py-24 md:py-32">
+    <section className="py-12 md:py-20">
       <div className="max-w-7xl mx-auto px-6">
         <div className="text-center mb-12">
           <p className="font-cinzel text-xs text-[#C9A84C] mb-3">MEMORIES</p>
@@ -375,35 +371,19 @@ function Gallery() {
           </p>
         </div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 auto-rows-[220px] sm:auto-rows-[260px] lg:auto-rows-[320px]">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-3 sm:gap-4">
           {images.map((item, i) => (
             <button
               key={i}
               onClick={() => setOpenIndex(i)}
-              className={`relative overflow-hidden rounded-lg group transition-all duration-300 hover:translate-y-[-8px] ${
-                i === 0 ? "sm:col-span-2 lg:col-span-2 lg:row-span-2" : ""
-              }`}
-              style={{
-                boxShadow: "0 4px 15px rgba(0,0,0,0.4)",
-              }}
+              className="relative overflow-hidden rounded-lg group transition-all duration-300 hover:translate-y-[-4px] aspect-[4/3]"
+              style={{ boxShadow: "0 4px 15px rgba(0,0,0,0.4)" }}
             >
               <img
                 src={item.src}
                 alt={`Award Ceremony ${item.year}`}
                 className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/30 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-between p-4">
-                <div />
-                <div>
-                  <div className="inline-block bg-[#C9A84C] text-black px-3 py-1 rounded-full mb-2">
-                    <span className="font-cinzel text-[11px] font-bold">{item.year}</span>
-                  </div>
-                  <p className="font-cinzel text-sm text-white">Award Ceremony {item.year}</p>
-                  <button className="mt-3 text-[#C9A84C] font-cinzel text-[11px] hover:text-white transition flex items-center gap-1">
-                    VIEW GALLERY →
-                  </button>
-                </div>
-              </div>
               <div className="absolute inset-0 border border-[#C9A84C]/30 group-hover:border-[#C9A84C] transition-colors duration-300 rounded-lg" />
             </button>
           ))}
@@ -425,17 +405,9 @@ function Gallery() {
               className="w-full max-h-[85vh] object-contain border-2 border-[#C9A84C] rounded-lg"
             />
 
-            <div className="absolute top-4 left-1/2 transform -translate-x-1/2 bg-black/80 px-4 py-2 rounded-full">
-              <span className="font-cinzel text-xs text-[#C9A84C]">
-                {openIndex + 1} / {images.length}
-              </span>
-            </div>
 
-            <div className="absolute bottom-4 left-1/2 transform -translate-x-1/2 bg-black/80 px-6 py-3 rounded-lg text-center">
-              <p className="font-cinzel text-sm text-white">
-                Award Ceremony {images[openIndex].year} — BCS Ratna Award
-              </p>
-            </div>
+
+
 
             <button
               onClick={() => setOpenIndex((openIndex - 1 + images.length) % images.length)}
@@ -472,7 +444,7 @@ function WhyUs() {
     { icon: TrendingUp, title: "Visibility", text: "National recognition for your brand." },
   ];
   return (
-    <section className="py-24 md:py-32 bg-[#0d0d0d]">
+    <section className="py-12 md:py-20 bg-[#0d0d0d]">
       <div className="max-w-7xl mx-auto px-6">
         <SectionTitle eyebrow="The Difference" title="Why |BCS Ratna|" />
         <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
@@ -500,7 +472,7 @@ function Videos() {
   ];
   const [open, setOpen] = useState<string | null>(null);
   return (
-    <section className="py-24 md:py-32">
+    <section className="py-12 md:py-20">
       <div className="max-w-7xl mx-auto px-6">
         <SectionTitle eyebrow="On Screen" title="Video |Gallery|" />
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -543,7 +515,7 @@ function Videos() {
 
 function Chairman() {
   return (
-    <section className="py-24 md:py-32 bg-[#0d0d0d] relative overflow-hidden">
+    <section className="py-12 md:py-20 bg-[#0d0d0d] relative overflow-hidden">
       <div className="absolute -top-32 -right-32 w-96 h-96 rounded-full bg-[#C9A84C]/10 blur-3xl" />
       <div className="max-w-6xl mx-auto px-6 relative">
         <SectionTitle eyebrow="Leadership" title="Chairman's |Message|" />
@@ -613,7 +585,7 @@ function VIPs() {
     { name: "Ms. Priya Nair", title: "VP Content", org: "JioStar", since: "2019" },
   ];
   return (
-    <section className="py-24 md:py-32 relative overflow-hidden">
+    <section className="py-12 md:py-20 relative overflow-hidden">
       <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(201,168,76,0.08),transparent_70%)]" />
       <div className="max-w-7xl mx-auto px-6 relative">
         <div className="text-center mb-14">

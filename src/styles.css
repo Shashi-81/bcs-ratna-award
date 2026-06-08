@@ -32,9 +32,9 @@
   --color-gold-light: var(--gold-light);
   --color-gold-dark: var(--gold-dark);
   --color-charcoal: var(--charcoal);
-  --font-display: "Playfair Display", serif;
-  --font-cinzel: "Raleway", sans-serif;
-  --font-sans: "Open Sans", sans-serif;
+  --font-display: "Cormorant Garamond", serif;
+  --font-cinzel: "Montserrat", sans-serif;
+  --font-sans: "Lato", sans-serif;
 }
 
 /* ── CSS VARIABLES ─────────────────────────────────── */
@@ -111,14 +111,14 @@
 }
 
 @utility font-cinzel {
-  font-family: "Raleway", sans-serif;
+  font-family: "Montserrat", sans-serif;
   font-weight: 800;
   letter-spacing: 0.2em;
   text-transform: uppercase;
 }
 
 @utility font-display {
-  font-family: "Playfair Display", serif;
+  font-family: "Cormorant Garamond", serif;
   font-weight: 900;
 }
 

@@ -4,6 +4,9 @@
 .env.production
 .env.*.local
 
+# Kiro IDE folder
+.kiro/
+
 # Logs
 logs
 *.log

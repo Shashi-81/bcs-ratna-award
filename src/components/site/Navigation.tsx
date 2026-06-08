@@ -37,8 +37,8 @@ export function Navigation() {
     return () => { document.body.style.overflow = ""; };
   }, [drawerOpen]);
 
-  const row1Height = 130;
-  const logoHeight = 130;
+  const row1Height = 72;
+  const logoHeight = 68;
 
   return (
     <>
@@ -57,102 +57,64 @@ export function Navigation() {
           transition: "all 0.35s ease",
         }}
       >
-        {/* ── ROW 1: LOGO ROW (desktop) ── */}
+        {/* ── SINGLE ROW: Logo left + Nav right (desktop) ── */}
         <div
           className="hidden md:flex"
           style={{
             height: `${row1Height}px`,
             alignItems: "center",
             justifyContent: "space-between",
-            position: "relative",
-            padding: "0 48px",
-            backgroundImage:
-              "linear-gradient(90deg, transparent 0%, rgba(201,168,76,0.15) 20%, rgba(201,168,76,0.4) 50%, rgba(201,168,76,0.15) 80%, transparent 100%)",
-            backgroundRepeat: "no-repeat",
-            backgroundSize: "100% 1px",
-            backgroundPosition: "bottom",
-            transition: "height 0.35s ease",
+            padding: "0 40px",
           }}
         >
-          {/* Invisible left spacer — mirrors right spacer width to keep logo centered */}
-          <div style={{ visibility: "hidden", pointerEvents: "none", minWidth: "160px" }}>
-            <span className="nominate-btn" style={{ opacity: 0 }}>Nominate Now</span>
-          </div>
-
-          {/* Centered logo */}
-          <Link to="/" style={{ display: "flex", alignItems: "center", flex: "0 0 auto" }}>
+          {/* Logo */}
+          <Link to="/" style={{ display: "flex", alignItems: "center", flexShrink: 0 }}>
             <img
               src="/assets/BCS-Website-Logo.png"
               alt="BCS Ratna Award"
               style={{
                 height: `${logoHeight}px`,
                 width: "auto",
-                maxWidth: "520px",
+                maxWidth: "280px",
                 objectFit: "contain",
                 display: "block",
-                transition: "height 0.35s ease, filter 0.3s ease",
+                transition: "filter 0.3s ease",
                 cursor: "pointer",
               }}
-              onMouseEnter={(e) => {
-                e.currentTarget.style.filter = "drop-shadow(0 0 12px rgba(201,168,76,0.6))";
-              }}
-              onMouseLeave={(e) => {
-                e.currentTarget.style.filter = "none";
-              }}
+              onMouseEnter={(e) => { e.currentTarget.style.filter = "drop-shadow(0 0 10px rgba(201,168,76,0.6))"; }}
+              onMouseLeave={(e) => { e.currentTarget.style.filter = "none"; }}
             />
           </Link>
 
-          {/* Invisible right spacer — keeps the centered logo centered */}
-          <div style={{ visibility: "hidden", pointerEvents: "none", minWidth: "160px" }}>
-            <span className="nominate-btn" style={{ opacity: 0 }}>Nominate Now</span>
-          </div>
-
-        </div>
-
-        {/* ── ROW 2: NAV MENU ROW (desktop) ── */}
-        <div
-          className="hidden md:flex"
-          style={{
-            height: "48px",
-            alignItems: "center",
-            justifyContent: "center",
-            gap: "36px",
-            padding: "0 32px",
-            width: "100%",
-            margin: 0,
-            listStyle: "none",
-          }}
-        >
-          {links.map((l) => (
+          {/* Nav links */}
+          <div style={{ display: "flex", alignItems: "center", gap: "28px" }}>
+            {links.map((l) => (
+              <Link
+                key={l.to}
+                to={l.to}
+                className="nav2-link"
+                activeProps={{ className: "nav2-link nav2-link--active" }}
+                style={{ whiteSpace: "nowrap" }}
+              >
+                {l.label}
+              </Link>
+            ))}
             <Link
-              key={l.to}
-              to={l.to}
+              to="/contact"
               className="nav2-link"
               activeProps={{ className: "nav2-link nav2-link--active" }}
-              style={{ display: "inline-flex", alignItems: "center", height: "100%", whiteSpace: "nowrap", lineHeight: 1 }}
+              style={{ whiteSpace: "nowrap" }}
             >
-              {l.label}
+              Contact
             </Link>
-          ))}
-
-          {/* Event Info Dropdown temporarily disabled */}
-
-          <Link
-            to="/contact"
-            className="nav2-link"
-            activeProps={{ className: "nav2-link nav2-link--active" }}
-            style={{ display: "inline-flex", alignItems: "center", height: "100%", whiteSpace: "nowrap", lineHeight: 1 }}
-          >
-            Contact
-          </Link>
-
-          <Link
-            to="/nominate"
-            className="nominate-btn"
-            style={{ display: "inline-flex", alignItems: "center", justifyContent: "center", height: "100%", whiteSpace: "nowrap", lineHeight: 1, padding: "0 22px" }}
-          >
-            Nominate Now
-          </Link>
+            <Link
+              to="/nominate"
+              className="nominate-btn"
+              style={{ whiteSpace: "nowrap", padding: "0 22px", height: "40px", display: "inline-flex", alignItems: "center" }}
+            >
+              Nominate Now
+            </Link>
+          </div>
         </div>
 
         {/* ── MOBILE SINGLE ROW ── */}
@@ -169,7 +131,7 @@ export function Navigation() {
             <img
               src="/assets/BCS-Website-Logo.png"
               alt="BCS Ratna Award"
-              style={{ height: "100px", width: "auto", maxWidth: "320px", objectFit: "contain", display: "block" }}
+              style={{ height: "52px", width: "auto", maxWidth: "220px", objectFit: "contain", display: "block" }}
             />
           </Link>
 
