@@ -3,7 +3,6 @@ import { Navigation } from "@/components/site/Navigation";
 import { Footer } from "@/components/site/Footer";
 import { GoldParticles } from "@/components/site/GoldParticles";
 import { CATEGORIES } from "@/lib/categories";
-import { ArrowRight, Gavel, ScrollText, Users } from "lucide-react";
 
 export const Route = createFileRoute("/categories")({
   head: () => ({
@@ -61,33 +60,18 @@ function CategoriesPage() {
                   <li key={s} className="text-sm text-white/75 flex items-start gap-2"><span className="text-[#C9A84C]">◆</span>{s}</li>
                 ))}
               </ul>
-              <div className="flex items-center justify-between mt-8 pt-6 border-t border-[#C9A84C]/20">
-                <div>
-                  <p className="font-cinzel text-[10px] text-white/55">Registration Fee</p>
-                  <p className="font-display text-2xl text-gold-gradient font-bold">₹{c.fee.toLocaleString("en-IN")} <span className="text-xs text-white/55">+ GST</span></p>
-                </div>
-                <Link to="/nominate" search={{ category: c.id }} className="btn-gold">Nominate <ArrowRight size={14} /></Link>
+              <div className="mt-8 pt-6 border-t border-[#C9A84C]/20">
+                <Link
+                  to="/nominate"
+                  className="btn-outline-gold inline-flex items-center justify-center px-6 py-3 text-sm font-semibold"
+                >
+                  Nominate Now
+                </Link>
               </div>
             </div>
           </div>
         ))}
       </div>
-
-      <section className="py-20 bg-[#0d0d0d]">
-        <div className="max-w-6xl mx-auto px-6 grid md:grid-cols-3 gap-6">
-          {[
-            { icon: Users, title: "Independent Jury", text: "A panel of 21 senior industry professionals reviews every entry." },
-            { icon: ScrollText, title: "Transparent Criteria", text: "Innovation · Impact · Reach · Quality · Industry Contribution." },
-            { icon: Gavel, title: "Fair Evaluation", text: "Multi-round scoring with full audit trail by independent auditors." },
-          ].map((i) => (
-            <div key={i.title} className="glass-card p-8 text-center">
-              <i.icon size={32} className="text-[#C9A84C] mx-auto" />
-              <h3 className="font-display text-xl mt-4">{i.title}</h3>
-              <p className="text-sm text-white/65 mt-2">{i.text}</p>
-            </div>
-          ))}
-        </div>
-      </section>
       <Footer />
     </div>
   );

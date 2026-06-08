@@ -134,7 +134,6 @@ function SchedulePage() {
       </section>
 
       <section className="max-w-4xl mx-auto px-6 pb-24 flex flex-wrap gap-3 justify-center">
-        <Link to="/nominate" search={{ category: undefined }} className="btn-gold">Nominate Now</Link>
         <Link to="/contact" className="btn-outline-gold">Become a Sponsor</Link>
         <Link to="/venue" className="btn-outline-gold">Venue Details</Link>
       </section>

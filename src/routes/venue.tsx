@@ -140,7 +140,6 @@ function VenuePage() {
             <a href="tel:+919811120650" className="inline-flex items-center gap-2 hover:text-[#C9A84C]"><Phone size={16} /> +91-9811120650</a>
           </div>
           <div className="mt-8 flex gap-3 justify-center">
-            <Link to="/nominate" search={{ category: undefined }} className="btn-gold">Nominate Now</Link>
             <Link to="/schedule" className="btn-outline-gold">View Schedule</Link>
           </div>
         </div>

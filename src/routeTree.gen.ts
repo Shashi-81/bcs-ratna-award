@@ -19,6 +19,7 @@ import { Route as NominateRouteImport } from './routes/nominate'
 import { Route as EventsRouteImport } from './routes/events'
 import { Route as ContactRouteImport } from './routes/contact'
 import { Route as CategoriesRouteImport } from './routes/categories'
+import { Route as AdminRouteImport } from './routes/admin'
 import { Route as AccreditationRouteImport } from './routes/accreditation'
 import { Route as AboutRouteImport } from './routes/about'
 import { Route as IndexRouteImport } from './routes/index'
@@ -73,6 +74,11 @@ const CategoriesRoute = CategoriesRouteImport.update({
   path: '/categories',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AdminRoute = AdminRouteImport.update({
+  id: '/admin',
+  path: '/admin',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const AccreditationRoute = AccreditationRouteImport.update({
   id: '/accreditation',
   path: '/accreditation',
@@ -93,6 +99,7 @@ export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
   '/accreditation': typeof AccreditationRoute
+  '/admin': typeof AdminRoute
   '/categories': typeof CategoriesRoute
   '/contact': typeof ContactRoute
   '/events': typeof EventsRoute
@@ -108,6 +115,7 @@ export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
   '/accreditation': typeof AccreditationRoute
+  '/admin': typeof AdminRoute
   '/categories': typeof CategoriesRoute
   '/contact': typeof ContactRoute
   '/events': typeof EventsRoute
@@ -124,6 +132,7 @@ export interface FileRoutesById {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
   '/accreditation': typeof AccreditationRoute
+  '/admin': typeof AdminRoute
   '/categories': typeof CategoriesRoute
   '/contact': typeof ContactRoute
   '/events': typeof EventsRoute
@@ -141,6 +150,7 @@ export interface FileRouteTypes {
     | '/'
     | '/about'
     | '/accreditation'
+    | '/admin'
     | '/categories'
     | '/contact'
     | '/events'
@@ -156,6 +166,7 @@ export interface FileRouteTypes {
     | '/'
     | '/about'
     | '/accreditation'
+    | '/admin'
     | '/categories'
     | '/contact'
     | '/events'
@@ -171,6 +182,7 @@ export interface FileRouteTypes {
     | '/'
     | '/about'
     | '/accreditation'
+    | '/admin'
     | '/categories'
     | '/contact'
     | '/events'
@@ -187,6 +199,7 @@ export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AboutRoute: typeof AboutRoute
   AccreditationRoute: typeof AccreditationRoute
+  AdminRoute: typeof AdminRoute
   CategoriesRoute: typeof CategoriesRoute
   ContactRoute: typeof ContactRoute
   EventsRoute: typeof EventsRoute
@@ -271,6 +284,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof CategoriesRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/admin': {
+      id: '/admin'
+      path: '/admin'
+      fullPath: '/admin'
+      preLoaderRoute: typeof AdminRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/accreditation': {
       id: '/accreditation'
       path: '/accreditation'
@@ -299,6 +319,7 @@ const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AboutRoute: AboutRoute,
   AccreditationRoute: AccreditationRoute,
+  AdminRoute: AdminRoute,
   CategoriesRoute: CategoriesRoute,
   ContactRoute: ContactRoute,
   EventsRoute: EventsRoute,

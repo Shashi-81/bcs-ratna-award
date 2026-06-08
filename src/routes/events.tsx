@@ -5,6 +5,7 @@ import { X, ChevronLeft, ChevronRight, Upload, Plus } from "lucide-react";
 import { Navigation } from "@/components/site/Navigation";
 import { Footer } from "@/components/site/Footer";
 import { GoldParticles } from "@/components/site/GoldParticles";
+import { YEAR_ASSET_MAP } from "@/lib/pastEventAssets";
 
 export const Route = createFileRoute("/events")({
   head: () => ({
@@ -51,10 +52,17 @@ const EDITION_LABELS: Record<number, { label: string; roman: string }> = {
   2021: { label: "12th Edition (XII)", roman: "XII" },
   2022: { label: "13th Edition (XIII)", roman: "XIII" },
   2023: { label: "14th Edition (XIV)", roman: "XIV" },
-  2024: { label: "15th Edition (XV)", roman: "XV" },
+  2025: { label: "15th Edition (XV)", roman: "XV" },
 };
 
-const YEARS_LIST = [2024, 2023, 2022, 2021, 2020, 2019, 2018, 2017, 2016, 2015, 2014, 2013, 2012, 2011, 2010];
+const YEARS_LIST = [2025, 2019, 2018, 2017, 2016, 2015, 2014, 2013, 2012, 2011, 2010];
+
+function getAssetPhotos(year: number): string[] {
+  const asset = YEAR_ASSET_MAP[year];
+  if (!asset) return [];
+  const basePath = encodeURI(`/assets/Past event images/${asset.folder}`);
+  return asset.files.map((file) => `${basePath}/${encodeURIComponent(file)}`);
+}
 
 function getDefaultPhotos(year: number): string[] {
   return Array.from({ length: 8 }, (_, i) =>
@@ -63,12 +71,13 @@ function getDefaultPhotos(year: number): string[] {
 }
 
 function loadPhotos(year: number): string[] {
-  if (typeof window === "undefined") return getDefaultPhotos(year);
+  const assetPhotos = getAssetPhotos(year);
+  if (typeof window === "undefined") return assetPhotos.length > 0 ? assetPhotos : getDefaultPhotos(year);
   try {
     const stored = localStorage.getItem(`bcs_photos_${year}`);
     if (stored) return JSON.parse(stored);
   } catch {}
-  return getDefaultPhotos(year);
+  return assetPhotos.length > 0 ? assetPhotos : getDefaultPhotos(year);
 }
 
 function savePhotos(year: number, photos: string[]) {
@@ -134,7 +143,9 @@ function EventsPage() {
     });
   };
 
-  const currentPhotos = selectedYear ? (yearPhotos[selectedYear] ?? getDefaultPhotos(selectedYear)) : [];
+  const currentPhotos = selectedYear
+    ? yearPhotos[selectedYear] ?? (getAssetPhotos(selectedYear).length > 0 ? getAssetPhotos(selectedYear) : getDefaultPhotos(selectedYear))
+    : [];
 
   const c1 = useCounter(15, 1800, statsVisible);
   const c2 = useCounter(500, 1800, statsVisible);
@@ -188,7 +199,8 @@ function EventsPage() {
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
             {YEARS_LIST.map((year, i) => {
               const edition = EDITION_LABELS[year];
-              const heroPhoto = `https://placehold.co/800x450/111111/C9A84C?text=Award+Ceremony+${year}`;
+              const assetPhotos = getAssetPhotos(year);
+              const heroPhoto = assetPhotos[0] ?? `https://placehold.co/800x450/111111/C9A84C?text=Award+Ceremony+${year}`;
               return (
                 <motion.div
                   key={year}
@@ -200,11 +212,11 @@ function EventsPage() {
                   style={{ boxShadow: "0 4px 10px rgba(0,0,0,0.3)" }}
                 >
                   {/* Card photo */}
-                  <div className="relative overflow-hidden" style={{ aspectRatio: "16/9", height: "200px" }}>
+                  <div className="relative overflow-hidden bg-[#0a0a0a] flex items-center justify-center" style={{ height: "200px" }}>
                     <img
                       src={heroPhoto}
                       alt={`Award Ceremony ${year}`}
-                      className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                      className="w-full h-full object-contain transition-transform duration-500 group-hover:scale-105"
                       style={{ borderRadius: "16px 16px 0 0" }}
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
@@ -281,20 +293,21 @@ function EventsPage() {
               </div>
             </div>
 
-            {/* Photo grid */}
+            {/* Photo grid — auto aspect ratio based on image orientation */}
             <div className="max-w-7xl mx-auto px-6 py-10">
-              <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
+              <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3">
                 {currentPhotos.map((src, i) => (
                   <button
                     key={i}
                     onClick={() => setLightboxIndex(i)}
-                    className="relative overflow-hidden rounded-xl border border-[#C9A84C]/15 hover:border-[#C9A84C]/60 group transition-all duration-300"
-                    style={{ aspectRatio: "16/9" }}
+                    className="relative overflow-hidden rounded-xl border border-[#C9A84C]/15 hover:border-[#C9A84C]/60 group transition-all duration-300 bg-[#0a0a0a] flex items-center justify-center"
+                    style={{ minHeight: "160px" }}
                   >
                     <img
                       src={src}
                       alt={`${selectedYear} ceremony photo ${i + 1}`}
-                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                      className="w-full h-full object-contain group-hover:scale-105 transition-transform duration-500"
+                      style={{ maxHeight: "280px", display: "block" }}
                     />
                     <div className="absolute inset-0 bg-black/0 group-hover:bg-black/30 transition-colors duration-300 flex items-center justify-center">
                       <span className="opacity-0 group-hover:opacity-100 font-cinzel text-white text-[11px] transition-opacity">

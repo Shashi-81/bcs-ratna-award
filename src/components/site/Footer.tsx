@@ -1,45 +1,31 @@
 import { Link } from "@tanstack/react-router";
 import { Facebook, Instagram, Linkedin, Mail, MapPin, Phone, Twitter, Youtube } from "lucide-react";
-import trophyImg from "@/assets/Trophy.png";
 import logoTextImg from "@/assets/BCS-Website-Logo.png";
 
 export function Footer() {
   return (
-    <footer className="bg-black pt-16 pb-8 relative overflow-hidden" style={{ borderTop: "2px solid rgba(201,168,76,0.35)" }}>
-      <img
-        src={trophyImg}
-        alt=""
-        aria-hidden="true"
-        className="footer-trophy footer-trophy-left"
-      />
-      <img
-        src={trophyImg}
-        alt=""
-        aria-hidden="true"
-        className="footer-trophy footer-trophy-right"
-      />
-      <div className="absolute inset-x-0 top-0 h-[2px]" style={{ background: "linear-gradient(90deg, transparent 0%, rgba(201,168,76,0.3) 20%, rgba(201,168,76,0.8) 50%, rgba(201,168,76,0.3) 80%, transparent 100%)" }} />
-      <div className="max-w-7xl mx-auto px-6">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-6 gap-12 pb-16 border-b border-[#C9A84C]/25">
-          <div className="lg:col-span-2">
+    <footer className="bg-[#050505] text-white">
+      <div className="border-b border-[#C9A84C]/20">
+        <div className="max-w-7xl mx-auto px-6 py-12 grid gap-10 md:grid-cols-2 lg:grid-cols-5">
+          <div className="lg:col-span-2 space-y-5">
             <img
               src={logoTextImg}
               alt="BCS Ratna Award"
-              style={{ height: "60px", width: "auto", objectFit: "contain" }}
-              className="mb-2"
+              className="h-16 w-auto object-contain"
             />
-            <p style={{ fontFamily: "'Raleway', sans-serif", fontSize: "14px", color: "#B0B0B0", letterSpacing: "2px", textTransform: "uppercase", marginTop: "8px" }}>
-              Broadcasting | Content | Social
-            </p>
-            <p style={{ fontFamily: "'Open Sans', sans-serif", fontSize: "13px", color: "#666666", marginTop: "4px" }}>
-              by Aavishkar Media Pvt. Ltd.
-            </p>
-            <p className="text-[14px] text-white/60 mt-4 leading-relaxed max-w-sm">
+            <p className="uppercase text-xs tracking-[0.35em] text-[#C9A84C]">Broadcasting • Content • Social</p>
+            <p className="text-sm text-white/70 max-w-md leading-relaxed">
               India's most prestigious Broadcasting, Cable & Satellite industry award by Aavishkar Media Group.
             </p>
-            <form className="mt-6 flex flex-col sm:flex-row gap-2 max-w-sm" onSubmit={(e) => e.preventDefault()}>
-              <input type="email" placeholder="Your email" className="input-gold text-sm flex-1" style={{ minHeight: "48px", fontSize: "15px" }} />
-              <button className="btn-gold font-cinzel" style={{ minWidth: "130px", whiteSpace: "nowrap", padding: "12px 20px", fontSize: "14px", height: "48px" }}>SUBSCRIBE</button>
+            <form className="flex flex-col sm:flex-row gap-3 max-w-md" onSubmit={(e) => e.preventDefault()}>
+              <input
+                type="email"
+                placeholder="Your email"
+                className="w-full rounded-full border border-white/15 bg-white/5 px-4 py-3 text-sm text-white placeholder:text-white/45 outline-none transition focus:border-[#C9A84C] focus:ring-2 focus:ring-[#C9A84C]/20"
+              />
+              <button className="rounded-full bg-gradient-to-r from-[#D4B55C] to-[#F9E07B] px-6 py-3 text-sm font-semibold text-black transition hover:brightness-110">
+                Subscribe
+              </button>
             </form>
           </div>
 
@@ -58,33 +44,36 @@ export function Footer() {
             { to: "/nominate", label: "Nominate Now" },
           ]} />
 
-          <FooterCol title="Legal" links={[
-            { to: "/privacy-policy", label: "Privacy Policy" },
-            { to: "/terms-conditions", label: "Terms & Conditions" },
-            { to: "/refund-policy", label: "Refund Policy" },
-          ]} />
-
           <div>
-            <h4 className="font-cinzel text-[13px] text-[#C9A84C] mb-5">Reach Us</h4>
-            <ul className="space-y-3 text-[14px] text-white/65">
-              <li className="flex gap-2"><MapPin size={16} className="text-[#C9A84C] shrink-0 mt-0.5" /><span>B-263, Indra Nagar, Adarsh Nagar, New Delhi-110033</span></li>
-              <li className="flex gap-2"><Phone size={16} className="text-[#C9A84C] shrink-0 mt-0.5" /><span>+91-9811120650<br/>+91-9811930420</span></li>
-              <li className="flex gap-2"><Mail size={16} className="text-[#C9A84C] shrink-0 mt-0.5" /><a href="mailto:info@aavishkargroup.in">info@aavishkargroup.in</a></li>
+            <h4 className="font-cinzel text-sm text-[#C9A84C] mb-5">Reach Us</h4>
+            <ul className="space-y-4 text-sm text-white/70">
+              <li className="flex gap-3">
+                <MapPin size={18} className="text-[#C9A84C] shrink-0 mt-0.5" />
+                <span>B-263, Indra Nagar, Adarsh Nagar, New Delhi-110033</span>
+              </li>
+              <li className="flex gap-3">
+                <Phone size={18} className="text-[#C9A84C] shrink-0 mt-0.5" />
+                <span>+91-9811120650<br />+91-9811930420</span>
+              </li>
+              <li className="flex gap-3">
+                <Mail size={18} className="text-[#C9A84C] shrink-0 mt-0.5" />
+                <a href="mailto:info@aavishkargroup.in" className="text-white/80 hover:text-[#C9A84C] transition">
+                  info@aavishkargroup.in
+                </a>
+              </li>
             </ul>
           </div>
         </div>
+      </div>
 
-        <div className="flex flex-col md:flex-row items-center justify-between gap-6 pt-10">
-          <p className="text-[14px] text-white/50 text-center md:text-left">
-            © 2026 BCS Ratna Award · Aavishkar Media Pvt. Ltd. · All Rights Reserved
-          </p>
-          <div className="flex gap-4">
-            {[Facebook, Twitter, Instagram, Linkedin, Youtube].map((Icon, i) => (
-              <a key={i} href="#" className="w-9 h-9 rounded-full border border-[#C9A84C]/30 flex items-center justify-center text-[#C9A84C] hover:bg-[#C9A84C] hover:text-black transition-all">
-                <Icon size={15} />
-              </a>
-            ))}
-          </div>
+      <div className="max-w-7xl mx-auto px-6 py-6 flex flex-col gap-4 md:flex-row md:items-center md:justify-between text-sm text-white/50">
+        <p>© 2026 BCS Ratna Award · Aavishkar Media Pvt. Ltd. · All Rights Reserved</p>
+        <div className="flex items-center gap-3">
+          {[Facebook, Twitter, Instagram, Linkedin, Youtube].map((Icon, i) => (
+            <a key={i} href="#" className="w-10 h-10 rounded-full border border-white/10 flex items-center justify-center text-[#C9A84C] transition hover:bg-[#C9A84C] hover:text-black">
+              <Icon size={16} />
+            </a>
+          ))}
         </div>
       </div>
     </footer>

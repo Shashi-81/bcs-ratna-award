@@ -460,26 +460,6 @@ select option:checked { background-color: #C9A84C !important; color: #000 !impor
   .hero-trophy-wrap { display: none !important; }
 }
 
-/* ── TROPHY — FOOTER ───────────────────────────────── */
-.footer-trophy {
-  position: absolute;
-  bottom: 0;
-  height: 480px;
-  width: auto;
-  object-fit: contain;
-  opacity: 0.7;
-  pointer-events: none;
-  z-index: 0;
-  transform-origin: center bottom;
-  animation: footerTrophyAnim 4s ease-in-out infinite;
-  filter: sepia(1) saturate(3) hue-rotate(5deg) drop-shadow(0 0 25px rgba(201,168,76,0.5));
-  will-change: opacity;
-}
-.footer-trophy-right { right: 0; }
-.footer-trophy-left  { left: 0; animation-delay: 2s; opacity: 0.55; }
-footer > *:not(.footer-trophy) { position: relative; z-index: 1; }
-@media (max-width: 768px) { .footer-trophy { display: none; } }
-
 /* ── WHATSAPP BUTTON ───────────────────────────────── */
 .whatsapp-floating-btn {
   position: fixed;
@@ -531,6 +511,26 @@ footer > *:not(.footer-trophy) { position: relative; z-index: 1; }
 /* Touch targets */
 input, textarea, select { min-height: 52px; font-size: 15px !important; }
 button, a, [role="button"] { min-width: 44px; min-height: 44px; }
+
+/* ── NOMINATION FORM ───────────────────────────────── */
+.nomination-section-card {
+  background: rgba(20, 20, 20, 0.7);
+  border: 1px solid rgba(201, 168, 76, 0.2);
+  border-radius: 16px;
+  padding: 1.75rem;
+}
+
+.nomination-section-heading {
+  font-family: "Raleway", sans-serif;
+  font-weight: 800;
+  font-size: 11px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: #C9A84C;
+  margin-bottom: 1.5rem;
+  padding-bottom: 0.75rem;
+  border-bottom: 1px solid rgba(201, 168, 76, 0.15);
+}
 
 /* ── ACCESSIBILITY ─────────────────────────────────── */
 @media (prefers-reduced-motion: reduce) {

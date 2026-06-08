@@ -98,40 +98,6 @@ function AboutPage() {
         </div>
       </section>
 
-      <section className="py-20">
-        <div className="max-w-5xl mx-auto px-6">
-          <SectionTitle eyebrow="Leadership" title="Chairman's |Address|" />
-          <div className="glass-card p-10 md:p-14 grid md:grid-cols-3 gap-10 items-center">
-            <img src="https://images.unsplash.com/photo-1560250097-0b93528c311a?auto=format&fit=crop&w=600&q=80" alt="Chairman" className="w-full aspect-square object-cover border-2 border-[#C9A84C]/50" />
-            <div className="md:col-span-2">
-              <Quote size={40} className="text-[#C9A84C]" />
-              <p className="font-display italic text-lg md:text-xl text-white/85 mt-4 leading-relaxed">
-                "An award is more than a trophy. It is a mirror held up to the industry, asking us each year — what have we dared, what have we built, whom have we moved? BCS Ratna exists to answer that question, with honesty and ceremony."
-              </p>
-              <p className="font-display text-lg text-gold-gradient font-bold mt-6">R. K. Sharma</p>
-              <p className="font-cinzel text-[10px] text-white/60">Chairman · Aavishkar Media Group</p>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <section className="py-20 bg-[#0d0d0d]">
-        <div className="max-w-6xl mx-auto px-6">
-          <SectionTitle eyebrow="The People" title="Organising |Team|" />
-          <div className="grid sm:grid-cols-2 md:grid-cols-4 gap-6">
-            {TEAM.map((p) => (
-              <div key={p.name} className="glass-card p-6 text-center">
-                <div className="w-24 h-24 mx-auto rounded-full bg-gold-gradient flex items-center justify-center font-display text-3xl text-black font-bold">
-                  {p.name.split(" ").map((n) => n[0]).join("")}
-                </div>
-                <h3 className="font-display text-lg mt-4">{p.name}</h3>
-                <p className="font-cinzel text-[10px] text-[#C9A84C] mt-1">{p.role}</p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
       <Footer />
     </div>
   );

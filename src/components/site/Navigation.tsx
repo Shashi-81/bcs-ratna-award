@@ -37,8 +37,8 @@ export function Navigation() {
     return () => { document.body.style.overflow = ""; };
   }, [drawerOpen]);
 
-  const row1Height = scrolled ? 76 : 100;
-  const logoHeight = scrolled ? 70 : 100;
+  const row1Height = 130;
+  const logoHeight = 130;
 
   return (
     <>
@@ -74,7 +74,7 @@ export function Navigation() {
             transition: "height 0.35s ease",
           }}
         >
-          {/* Invisible left spacer — mirrors button width to keep logo truly centered */}
+          {/* Invisible left spacer — mirrors right spacer width to keep logo centered */}
           <div style={{ visibility: "hidden", pointerEvents: "none", minWidth: "160px" }}>
             <span className="nominate-btn" style={{ opacity: 0 }}>Nominate Now</span>
           </div>
@@ -82,12 +82,12 @@ export function Navigation() {
           {/* Centered logo */}
           <Link to="/" style={{ display: "flex", alignItems: "center", flex: "0 0 auto" }}>
             <img
-              src="/assets/BCS-Trophy-Website-Logo.png"
+              src="/assets/BCS-Website-Logo.png"
               alt="BCS Ratna Award"
               style={{
                 height: `${logoHeight}px`,
                 width: "auto",
-                maxWidth: "320px",
+                maxWidth: "520px",
                 objectFit: "contain",
                 display: "block",
                 transition: "height 0.35s ease, filter 0.3s ease",
@@ -102,17 +102,11 @@ export function Navigation() {
             />
           </Link>
 
-          {/* NOMINATE NOW — right side */}
-          <div style={{ display: "flex", alignItems: "center", justifyContent: "flex-end", minWidth: "160px" }}>
-            <Link
-              to="/nominate"
-              search={{ category: undefined }}
-              className="nominate-btn"
-              style={{ whiteSpace: "nowrap" }}
-            >
-              Nominate Now
-            </Link>
+          {/* Invisible right spacer — keeps the centered logo centered */}
+          <div style={{ visibility: "hidden", pointerEvents: "none", minWidth: "160px" }}>
+            <span className="nominate-btn" style={{ opacity: 0 }}>Nominate Now</span>
           </div>
+
         </div>
 
         {/* ── ROW 2: NAV MENU ROW (desktop) ── */}
@@ -123,7 +117,7 @@ export function Navigation() {
             alignItems: "center",
             justifyContent: "center",
             gap: "36px",
-            padding: "0 48px",
+            padding: "0 32px",
             width: "100%",
             margin: 0,
             listStyle: "none",
@@ -151,23 +145,31 @@ export function Navigation() {
           >
             Contact
           </Link>
+
+          <Link
+            to="/nominate"
+            className="nominate-btn"
+            style={{ display: "inline-flex", alignItems: "center", justifyContent: "center", height: "100%", whiteSpace: "nowrap", lineHeight: 1, padding: "0 22px" }}
+          >
+            Nominate Now
+          </Link>
         </div>
 
         {/* ── MOBILE SINGLE ROW ── */}
         <div
           className="flex md:hidden"
           style={{
-            height: "70px",
+            height: "72px",
             alignItems: "center",
             justifyContent: "space-between",
-            padding: "0 20px",
+            padding: "0 18px",
           }}
         >
           <Link to="/" style={{ display: "flex", alignItems: "center" }}>
             <img
-              src="/assets/BCS-Trophy-Website-Logo.png"
+              src="/assets/BCS-Website-Logo.png"
               alt="BCS Ratna Award"
-              style={{ height: "56px", width: "auto", maxWidth: "220px", objectFit: "contain", display: "block" }}
+              style={{ height: "100px", width: "auto", maxWidth: "320px", objectFit: "contain", display: "block" }}
             />
           </Link>
 
@@ -257,9 +259,9 @@ export function Navigation() {
           flexShrink: 0,
         }}>
           <img
-            src="/assets/BCS-Trophy-Website-Logo.png"
+            src="/assets/BCS-Website-Logo.png"
             alt="BCS Ratna Award"
-            style={{ height: "40px", width: "auto", objectFit: "contain" }}
+            style={{ height: "64px", width: "auto", objectFit: "contain" }}
           />
           <button
             onClick={() => setDrawerOpen(false)}
@@ -279,23 +281,14 @@ export function Navigation() {
         <div style={{ padding: "20px 20px 8px" }}>
           <Link
             to="/nominate"
-            search={{ category: undefined }}
             onClick={() => setDrawerOpen(false)}
             style={{
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-              width: "100%",
-              padding: "14px",
+              display: "flex", alignItems: "center", justifyContent: "center",
+              width: "100%", padding: "14px",
               background: "linear-gradient(135deg, #BF953F, #C9A84C, #B38728)",
-              color: "#000000",
-              fontFamily: "'Raleway', sans-serif",
-              fontWeight: 800,
-              fontSize: "13px",
-              letterSpacing: "2px",
-              textTransform: "uppercase",
-              borderRadius: "10px",
-              textDecoration: "none",
+              color: "#000000", fontFamily: "'Raleway', sans-serif", fontWeight: 800,
+              fontSize: "13px", letterSpacing: "2px", textTransform: "uppercase",
+              borderRadius: "10px", textDecoration: "none",
               boxShadow: "0 4px 15px rgba(201,168,76,0.35)",
             }}
           >

@@ -84,6 +84,7 @@ function HomePage() {
     <div className="bg-background min-h-screen">
       <Navigation />
       <Hero />
+      <BannerImage />
       <Stats />
       <About />
       <Categories />
@@ -102,7 +103,7 @@ function HomePage() {
 function Hero() {
   const { d, h, m, s, expired } = useCountdown();
   return (
-    <section className="relative min-h-screen flex items-center justify-center pt-[70px] md:pt-[148px]" style={{ overflow: "hidden" }}>
+    <section className="relative min-h-screen flex items-center justify-center pt-[80px] md:pt-[180px]" style={{ overflow: "hidden" }}>
       <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(201,168,76,0.15),transparent_60%)]" />
       <div
         className="absolute inset-0 opacity-30"
@@ -228,11 +229,26 @@ function Hero() {
           transition={{ duration: 1, delay: 1.2 }}
           className="mt-12 flex flex-col sm:flex-row gap-4 justify-center"
         >
-          <Link to="/nominate" search={{ category: undefined }} className="btn-gold animate-pulse-gold">
-            Nominate Now <ArrowRight size={16} />
-          </Link>
           <Link to="/categories" className="btn-outline-gold">Explore Categories</Link>
         </motion.div>
+      </div>
+    </section>
+  );
+}
+
+function BannerImage() {
+  return (
+    <section className="py-6 lg:py-8">
+      <div className="max-w-7xl mx-auto px-6">
+        <Link to="/nominate" className="block overflow-hidden rounded-[1.5rem] shadow-[0_22px_70px_rgba(0,0,0,0.45)]">
+          <img
+            src="/assets/banner.jpeg"
+            alt="BCS Ratna Award banner"
+            className="w-full h-auto object-contain block"
+            loading="eager"
+            style={{ display: "block" }}
+          />
+        </Link>
       </div>
     </section>
   );
@@ -265,11 +281,11 @@ function About() {
       <div className="max-w-7xl mx-auto px-6 grid lg:grid-cols-2 gap-16 items-center">
         <div className="relative">
           <div className="absolute -inset-3 bg-gold-gradient opacity-50 blur-2xl" />
-          <div className="relative aspect-[4/5] overflow-hidden border-2 border-[#C9A84C]/60">
+          <div className="relative aspect-[4/5] overflow-hidden border-2 border-[#C9A84C]/60 bg-black">
             <img
-              src="https://images.unsplash.com/photo-1540575467063-178a50c2df87?auto=format&fit=crop&w=900&q=80"
-              alt="BCS Ratna Award ceremony"
-              className="w-full h-full object-cover"
+              src="/assets/bcs photo.webp"
+              alt="BCS Ratna Award"
+              className="w-full h-full object-contain"
             />
           </div>
         </div>
@@ -307,9 +323,6 @@ function Categories() {
               </div>
               <h3 className="font-display text-2xl font-semibold text-white">{c.name}</h3>
               <p className="text-sm text-white/60 mt-3 leading-relaxed">{c.description}</p>
-              <Link to="/nominate" search={{ category: c.id }} className="inline-flex items-center gap-2 mt-6 font-cinzel text-[11px] text-[#C9A84C] hover:gap-3 transition-all">
-                Nominate <ArrowRight size={14} />
-              </Link>
             </div>
           ))}
         </div>
@@ -319,17 +332,18 @@ function Categories() {
 }
 
 function Gallery() {
+  const galleryRoot = "/assets/top%20glimpses/";
   const images = [
-    { year: "2010", src: "https://images.unsplash.com/photo-1531058020387-3be344556be6?auto=format&fit=crop&w=800&q=80" },
-    { year: "2011", src: "https://images.unsplash.com/photo-1511578314322-379afb476865?auto=format&fit=crop&w=800&q=80" },
-    { year: "2012", src: "https://images.unsplash.com/photo-1493804714600-6edb1cd93080?auto=format&fit=crop&w=800&q=80" },
-    { year: "2013", src: "https://images.unsplash.com/photo-1505236858219-8359eb29e329?auto=format&fit=crop&w=800&q=80" },
-    { year: "2014", src: "https://images.unsplash.com/photo-1492684223066-81342ee5ff30?auto=format&fit=crop&w=800&q=80" },
-    { year: "2015", src: "https://images.unsplash.com/photo-1470229722913-7c0e2dbbafd3?auto=format&fit=crop&w=800&q=80" },
-    { year: "2016", src: "https://images.unsplash.com/photo-1559511260-66a654ae982a?auto=format&fit=crop&w=800&q=80" },
-    { year: "2017", src: "https://images.unsplash.com/photo-1540575467063-178a50c2df87?auto=format&fit=crop&w=800&q=80" },
-    { year: "2018", src: "https://images.unsplash.com/photo-1493804714600-6edb1cd93080?auto=format&fit=crop&w=800&q=80" },
-    { year: "2019", src: "https://images.unsplash.com/photo-1511578314322-379afb476865?auto=format&fit=crop&w=800&q=80" },
+    { year: "2013", src: `${galleryRoot}IMG_2160.JPG.jpeg` },
+    { year: "2014", src: `${galleryRoot}IMG_2231.JPG.jpeg` },
+    { year: "2015", src: `${galleryRoot}IMG_2335.JPG.jpeg` },
+    { year: "2016", src: `${galleryRoot}IMG_2389.JPG.jpeg` },
+    { year: "2017", src: `${galleryRoot}IMG_2436.JPG.jpeg` },
+    { year: "2018", src: `${galleryRoot}IMG_2484.JPG.jpeg` },
+    { year: "2019", src: `${galleryRoot}IMG_2584.JPG.jpeg` },
+    { year: "2020", src: `${galleryRoot}Zee Action.JPG.jpeg` },
+    { year: "2021", src: `${galleryRoot}_MG_2191.JPG.jpeg` },
+    { year: "2022", src: `${galleryRoot}_MG_2259.JPG.jpeg` },
   ];
   
   const [openIndex, setOpenIndex] = useState<number | null>(null);
@@ -360,13 +374,13 @@ function Gallery() {
           </p>
         </div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 auto-rows-[250px] sm:auto-rows-[300px]">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 auto-rows-[220px] sm:auto-rows-[260px] lg:auto-rows-[320px]">
           {images.map((item, i) => (
             <button
               key={i}
               onClick={() => setOpenIndex(i)}
               className={`relative overflow-hidden rounded-lg group transition-all duration-300 hover:translate-y-[-8px] ${
-                i % 5 === 0 ? "sm:col-span-1 lg:col-span-1 lg:row-span-2" : ""
+                i === 0 ? "sm:col-span-2 lg:col-span-2 lg:row-span-2" : ""
               }`}
               style={{
                 boxShadow: "0 4px 15px rgba(0,0,0,0.4)",
@@ -476,12 +490,12 @@ function WhyUs() {
 
 function Videos() {
   const vids = [
-    { id: "dQw4w9WgXcQ", title: "BCS Ratna 2019 Highlights" },
-    { id: "ScMzIvxBSi4", title: "Best Moments 2018" },
-    { id: "9bZkp7q19f0", title: "Lifetime Achievement Tribute" },
-    { id: "kJQP7kiw5Fk", title: "Chairman's Address" },
-    { id: "RgKAFK5djSk", title: "Red Carpet Specials" },
-    { id: "OPf0YbXqDm0", title: "Trailer 2026 Edition" },
+    "jQrUhMAXnyI",
+    "BAn-HcBsjMQ",
+    "xrOWzsDqQe4",
+    "a1KetIorPgk",
+    "UV7fBCAk8lM",
+    "W2PA5aFb1bY",
   ];
   const [open, setOpen] = useState<string | null>(null);
   return (
@@ -489,18 +503,30 @@ function Videos() {
       <div className="max-w-7xl mx-auto px-6">
         <SectionTitle eyebrow="On Screen" title="Video |Gallery|" />
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {vids.map((v) => (
-            <button key={v.id} onClick={() => setOpen(v.id)} className="relative aspect-video overflow-hidden border border-[#C9A84C]/30 group">
-              <img src={`https://i.ytimg.com/vi/${v.id}/maxresdefault.jpg`} alt={v.title} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/30 to-transparent" />
+          {vids.map((id) => (
+            <button key={id} onClick={() => setOpen(id)} className="relative aspect-video overflow-hidden border border-[#C9A84C]/30 group">
+              <img src={`https://i.ytimg.com/vi/${id}/maxresdefault.jpg`} alt="" className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" />
+              <div className="absolute inset-0 bg-black/30 group-hover:bg-black/50 transition-colors duration-300" />
               <div className="absolute inset-0 flex items-center justify-center">
                 <div className="w-16 h-16 rounded-full bg-gold-gradient flex items-center justify-center group-hover:scale-110 transition">
                   <Play size={22} className="text-black ml-1" fill="currentColor" />
                 </div>
               </div>
-              <p className="absolute bottom-4 left-4 right-4 text-left font-cinzel text-xs text-white">{v.title}</p>
             </button>
           ))}
+        </div>
+        <div className="mt-10 flex justify-center">
+          <a
+            href="https://www.youtube.com/@AavishkarMediaGroup"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="btn-gold inline-flex items-center gap-2"
+          >
+            <svg viewBox="0 0 24 24" fill="currentColor" className="w-5 h-5" aria-hidden="true">
+              <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/>
+            </svg>
+            View Channel
+          </a>
         </div>
       </div>
       {open && (
@@ -723,11 +749,6 @@ function CtaBanner() {
         <p className="text-black/80 mt-6 max-w-2xl mx-auto">
           Join the legends. Stake your claim. Be celebrated at India's most prestigious media gala.
         </p>
-        <div className="mt-10">
-          <Link to="/nominate" search={{ category: undefined }} className="inline-flex items-center gap-2 bg-black text-[#C9A84C] font-cinzel text-xs px-10 py-5 hover:bg-[#0a0a0a] hover:scale-105 transition-all border-2 border-black animate-pulse-gold">
-            Register &amp; Nominate Now <ArrowRight size={16} />
-          </Link>
-        </div>
       </div>
     </section>
   );
