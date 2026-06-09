@@ -103,7 +103,7 @@ function HomePage() {
 function Hero() {
   const { d, h, m, s, expired } = useCountdown();
   return (
-    <section className="relative min-h-screen flex items-center justify-center pt-[72px]" style={{ overflow: "hidden" }}>
+    <section className="relative flex items-center justify-center pt-[72px] pb-8 md:min-h-screen md:pb-0" style={{ overflow: "hidden", minHeight: "calc(100svh)" }}>
       <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(201,168,76,0.15),transparent_60%)]" />
       <div
         className="absolute inset-0 opacity-30"
@@ -170,7 +170,7 @@ function Hero() {
         />
       </div>
 
-      <div className="hero-content max-w-5xl mx-auto px-5 text-center relative z-10">
+      <div className="hero-content max-w-5xl mx-auto px-5 text-center relative z-10 py-8 md:py-0">
         <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8 }}>
           <span className="inline-block font-cinzel text-[10px] sm:text-xs text-[#C9A84C] border border-[#C9A84C]/40 rounded-full px-3 py-1.5 mb-5 sm:mb-8">
             🏆 Since 2010 · India's Premier Media Award
@@ -197,9 +197,9 @@ function Hero() {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 1, delay: 0.8 }}
-          className="mt-8 sm:mt-12"
+          className="mt-6 sm:mt-12"
         >
-          <p className="font-cinzel text-[10px] sm:text-xs text-[#C9A84C] mb-3">The 16th Edition · June 30, 2026</p>
+          <p className="font-cinzel text-[10px] sm:text-xs text-[#C9A84C] mb-2 sm:mb-3">The 16th Edition · June 30, 2026</p>
           {expired ? (
             <div className="glass-card px-8 py-6">
               <p className="font-cinzel text-xl sm:text-3xl text-[#C9A84C] font-bold">REGISTRATIONS CLOSED</p>
@@ -225,9 +225,10 @@ function Hero() {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 1, delay: 1.2 }}
-          className="mt-8 sm:mt-12 flex flex-col sm:flex-row gap-3 justify-center"
+          className="mt-5 sm:mt-12 flex flex-col sm:flex-row gap-3 justify-center"
         >
           <Link to="/categories" className="btn-outline-gold text-sm px-6 py-3">Explore Categories</Link>
+          <Link to="/nominate" className="btn-gold text-sm px-6 py-3 justify-center">Nominate Now</Link>
         </motion.div>
       </div>
     </section>
@@ -236,7 +237,7 @@ function Hero() {
 
 function BannerImage() {
   return (
-    <section className="py-4 sm:py-6 lg:py-8">
+    <section className="hidden sm:block py-4 sm:py-6 lg:py-8">
       <div className="max-w-7xl mx-auto px-4 sm:px-6">
         <Link to="/nominate" className="block overflow-hidden rounded-xl sm:rounded-[1.5rem] shadow-[0_22px_70px_rgba(0,0,0,0.45)]">
           <img
@@ -314,13 +315,21 @@ function Categories() {
         <SectionTitle eyebrow="Honours" title="Award |Categories|" subtitle="Six pillars of recognition across India's broadcasting and digital ecosystem." />
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
           {CATEGORIES.map((c) => (
-            <div key={c.id} className="glass-card p-8 group hover:border-[#C9A84C]/70 transition-all duration-500 hover:-translate-y-1">
-              <div className="w-14 h-14 rounded-full border border-[#C9A84C]/40 flex items-center justify-center mb-6 group-hover:bg-gold-gradient group-hover:text-black transition-all">
-                <c.icon size={24} className="text-[#C9A84C] group-hover:text-black" />
+            <Link
+              key={c.id}
+              to="/categories"
+              className="glass-card p-8 group hover:border-[#C9A84C]/70 transition-all duration-500 hover:-translate-y-1 block no-underline"
+            >
+              <div className="w-14 h-14 rounded-full border border-[#C9A84C]/40 flex items-center justify-center mb-6 group-hover:bg-[#C9A84C] transition-all">
+                <c.icon size={24} className="text-[#C9A84C] group-hover:text-black transition-colors" />
               </div>
               <h3 className="font-display text-2xl font-semibold text-white">{c.name}</h3>
               <p className="text-sm text-white/60 mt-3 leading-relaxed">{c.description}</p>
-            </div>
+              <div className="mt-4 pt-4 border-t border-[#C9A84C]/15 flex items-center justify-between">
+                <span className="text-[#C9A84C] text-xs font-cinzel">{c.subcategories.length} categories</span>
+                <span className="text-[#C9A84C] text-xs">View & Nominate →</span>
+              </div>
+            </Link>
           ))}
         </div>
       </div>
