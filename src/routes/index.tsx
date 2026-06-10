@@ -4,7 +4,7 @@ import { motion } from "framer-motion";
 import { ArrowRight, Award, Globe, Handshake, TrendingUp, Play } from "lucide-react";
 import { Navigation } from "@/components/site/Navigation";
 import { Footer } from "@/components/site/Footer";
-import { GoldParticles } from "@/components/site/GoldParticles";
+import { AmbientBackground } from "@/components/site/AmbientBackground";
 import { SectionTitle } from "@/components/site/SectionTitle";
 import { CATEGORIES } from "@/lib/categories";
 import trophyPng from "@/assets/Trophy.png";
@@ -88,7 +88,7 @@ function HomePage() {
       <About />
       <Gallery />
       <Categories />
-      <VIPs />
+      {/* <VIPs /> */}
       <Videos />
       <Chairman />
       <WhyUs />
@@ -104,19 +104,7 @@ function Hero() {
   const { d, h, m, s, expired } = useCountdown();
   return (
     <section className="relative flex items-center justify-center pt-[72px] pb-8 md:min-h-screen md:pb-0" style={{ overflow: "hidden", minHeight: "calc(100svh)" }}>
-      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(201,168,76,0.15),transparent_60%)]" />
-      <div
-        className="absolute inset-0 opacity-30"
-        style={{
-          backgroundImage:
-            "url('https://images.unsplash.com/photo-1492684223066-81342ee5ff30?auto=format&fit=crop&w=1920&q=80')",
-          backgroundSize: "cover",
-          backgroundPosition: "center",
-          filter: "blur(2px)",
-        }}
-      />
-      <div className="absolute inset-0 bg-gradient-to-b from-black/70 via-black/60 to-black" />
-      <GoldParticles count={35} />
+      <AmbientBackground />
 
       {/* Trophy LEFT — hidden on mobile */}
       <div className="hidden md:flex hero-trophy-wrap" style={{
@@ -199,7 +187,7 @@ function Hero() {
           transition={{ duration: 1, delay: 0.8 }}
           className="mt-6 sm:mt-12"
         >
-          <p className="font-cinzel text-[10px] sm:text-xs text-[#C9A84C] mb-2 sm:mb-3">The 16th Edition · June 30, 2026</p>
+          <p className="font-cinzel text-[10px] sm:text-xs text-[#C9A84C] mb-2 sm:mb-3">The 12th Edition · BCS Ratna Award 2026</p>
           {expired ? (
             <div className="glass-card px-8 py-6">
               <p className="font-cinzel text-xl sm:text-3xl text-[#C9A84C] font-bold">REGISTRATIONS CLOSED</p>
@@ -216,6 +204,27 @@ function Hero() {
                     <div className="font-cinzel text-[8px] sm:text-[9px] text-white/60 mt-1">{label}</div>
                   </div>
                 ))}
+              </div>
+              {/* Highlight text + date below counter */}
+              <div className="mt-5 space-y-3">
+                <div className="flex items-center justify-center gap-3">
+                  <div className="h-px w-12 bg-[#C9A84C]/40" />
+                  <p className="font-cinzel text-[11px] sm:text-xs text-[#C9A84C] tracking-widest animate-pulse">
+                    🏆 NOMINATIONS ARE OPEN — SUBMIT NOW
+                  </p>
+                  <div className="h-px w-12 bg-[#C9A84C]/40" />
+                </div>
+                <div className="flex flex-row items-center justify-center gap-3">
+                  <div className="bg-[#C9A84C]/15 border border-[#C9A84C]/50 rounded-xl px-3 py-2 text-center flex-1 max-w-[160px]">
+                    <p className="font-cinzel text-[8px] text-[#C9A84C] tracking-wide">LAST DATE</p>
+                    <p className="font-display text-sm font-bold text-white mt-0.5">June 30, 2026</p>
+                  </div>
+                  <div className="h-8 w-px bg-white/15" />
+                  <div className="bg-white/5 border border-white/15 rounded-xl px-3 py-2 text-center flex-1 max-w-[160px]">
+                    <p className="font-cinzel text-[8px] text-white/50 tracking-wide">CEREMONY</p>
+                    <p className="font-display text-sm font-bold text-white mt-0.5">5th Aug 2026</p>
+                  </div>
+                </div>
               </div>
             </>
           )}
@@ -540,8 +549,8 @@ function Chairman() {
               style={{ aspectRatio: "3/4" }}
             />
             <div className="mt-5 relative">
-              <p className="font-display text-xl text-gold-gradient font-bold">R. K. Sharma</p>
-              <p className="font-cinzel text-[11px] text-white/60 mt-1 tracking-widest">Chairman · Aavishkar Media Group</p>
+              <p className="font-display text-2xl text-gold-gradient font-bold">Dr. A.K. Rastogi</p>
+              <p className="font-cinzel text-sm text-white/70 mt-1.5 tracking-wider">Founder-Chairman & Editor in Chief</p>
             </div>
           </div>
 

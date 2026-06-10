@@ -78,6 +78,55 @@ function AboutPage() {
         </div>
       </section>
 
+      {/* ── ABOUT BCS SECTION ── */}
+      <section className="py-16 md:py-20">
+        <div className="max-w-6xl mx-auto px-6">
+          <div className="grid lg:grid-cols-2 gap-12 items-center">
+
+            {/* Left — Text */}
+            <div>
+              <p className="font-cinzel text-xs text-[#C9A84C] mb-3">About BCS Ratna Awards</p>
+              <h2 className="font-display text-3xl md:text-4xl font-bold text-white leading-tight">
+                India's Most <span className="text-gold-gradient">Celebrated</span> Media Industry Award
+              </h2>
+              <div className="gold-divider !mx-0 my-5" />
+              <div className="space-y-4 text-white/70 leading-relaxed text-[15px]">
+                <p>
+                  The BCS Ratna Awards are bestowed annually by <span className="text-[#C9A84C] font-semibold">Aavishkar Media Group</span> to give recognition and contribution of personalities from the Broadcasting, Digital Media, Content, Distribution, Technology, DTH, &amp; CATV Industry by honoring them.
+                </p>
+                <p>
+                  Launched in <span className="text-[#C9A84C] font-semibold">2010</span>, BCS Ratna Awards is India's B&CS industry's most significant and celebrated event and has become the most awaited and regular social event which has already completed its eight splendid journeys. It has not only recognized the immense contribution of people from this field but also provided them a platform with vast networking opportunities.
+                </p>
+                <p>
+                  The awards also recognize the hard work &amp; immense effort put up by the industry people for delivering 24×7 services &amp; content to <span className="text-[#C9A84C] font-semibold">183 million households</span> having TV sets, through multiple distribution platforms. The entire selection process helps establish 'BCS Ratna Awards' as one of the most coveted awards in entire India &amp; upholds a prestigious reputation.
+                </p>
+                <p>
+                  Determined by an expert panel of judges from the industry, the results are tabulated and audited — winners are announced only during the Awards Ceremony and Gala Evening. The Awards comprise over <span className="text-[#C9A84C] font-semibold">6 categories</span> &amp; represent the industry's foremost recognition, enjoying the support of every major industry player throughout the region.
+                </p>
+              </div>
+            </div>
+
+            {/* Right — Trophy Photo */}
+            <div className="relative flex items-center justify-center">
+              <div className="absolute inset-0 bg-[#C9A84C]/10 blur-3xl rounded-full" />
+              <img
+                src="/assets/Trophy.png"
+                alt="BCS Ratna Award Trophy"
+                style={{
+                  height: "600px",
+                  width: "auto",
+                  objectFit: "contain",
+                  filter: "drop-shadow(0 0 60px rgba(201,168,76,0.6)) drop-shadow(0 0 25px rgba(201,168,76,0.4))",
+                  position: "relative",
+                  zIndex: 1,
+                }}
+              />
+            </div>
+
+          </div>
+        </div>
+      </section>
+
       <section className="py-20 bg-[#0d0d0d]">
         <div className="max-w-4xl mx-auto px-6">
           <SectionTitle eyebrow="The Journey" title="Milestones |2010 — 2026|" />
