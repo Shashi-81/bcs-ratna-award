@@ -3,7 +3,7 @@ import React, { useEffect, useState, useCallback } from "react";
 import {
   Users, FileText, DollarSign, Clock, CheckCircle, XCircle,
   Download, Search, RefreshCw, Eye, BarChart3,
-  LogOut, Award, TrendingUp, CreditCard, ChevronDown,
+  LogOut, Award, TrendingUp, CreditCard, ChevronDown, ImageIcon, ExternalLink,
 } from "lucide-react";
 import type { Nomination, User, NominationEntry } from "@/lib/supabase";
 import { SECTORS, getCategoriesForSector } from "@/lib/nomination-data";
@@ -13,7 +13,7 @@ export const Route = createFileRoute("/admin")({
   component: AdminPage,
 });
 
-type Tab = "dashboard" | "nominations" | "drafts" | "users" | "payments";
+type Tab = "dashboard" | "nominations" | "drafts" | "users" | "payments" | "photos";
 
 interface Stats {
   total_registrations: number;
@@ -201,6 +201,7 @@ function AdminPage() {
     { id: "drafts", icon: Clock, label: "Drafts" },
     { id: "users", icon: Users, label: "Registrants" },
     { id: "payments", icon: DollarSign, label: "Payments" },
+    { id: "photos", icon: ImageIcon, label: "Photos" },
   ] as const;
 
   if (!authed) {
@@ -537,6 +538,81 @@ function AdminPage() {
               </div>
             </div>
           )}
+
+          {/* PHOTOS */}
+          {tab === "photos" && (
+            <div>
+              <h2 className="font-display text-xl md:text-2xl text-white mb-5 flex items-center gap-2">
+                <ImageIcon size={20} className="text-[#C9A84C]" /> Uploaded Photos
+              </h2>
+              {(() => {
+                // Collect all entries that have a photo_url
+                const photoEntries: { nom: Nomination; entry: NominationEntry; idx: number }[] = [];
+                for (const nom of nominations) {
+                  if (!Array.isArray(nom.entries)) continue;
+                  nom.entries.forEach((entry: NominationEntry, idx: number) => {
+                    if (entry.photo_url) photoEntries.push({ nom, entry, idx });
+                  });
+                }
+                if (photoEntries.length === 0) {
+                  return (
+                    <div className="flex flex-col items-center justify-center py-20 text-white/30">
+                      <ImageIcon size={40} className="mb-3 opacity-30" />
+                      <p className="text-sm">No photos uploaded yet</p>
+                    </div>
+                  );
+                }
+                return (
+                  <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4">
+                    {photoEntries.map(({ nom, entry, idx }) => {
+                      const sectorLabel = SECTORS.find((s) => s.id === entry.sector)?.label ?? entry.sector;
+                      return (
+                        <div key={`${nom.id}-${idx}`} className="bg-[#0e0e0e] border border-white/10 rounded-xl overflow-hidden">
+                          {/* Photo */}
+                          <div className="aspect-square bg-black/40 flex items-center justify-center overflow-hidden relative group">
+                            <img
+                              src={entry.photo_url}
+                              alt={entry.nominee_name}
+                              className="w-full h-full object-cover"
+                              onError={(e) => { (e.target as HTMLImageElement).style.display = "none"; }}
+                            />
+                            <a
+                              href={entry.photo_url}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              className="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center gap-1.5 text-white text-xs font-medium"
+                            >
+                              <ExternalLink size={14} /> Open Full
+                            </a>
+                          </div>
+                          {/* Info */}
+                          <div className="p-3">
+                            <p className="text-white text-xs font-semibold truncate">{entry.nominee_name || "—"}</p>
+                            <p className="text-white/40 text-xs truncate mt-0.5">{entry.company_name || "—"}</p>
+                            <p className="text-[#C9A84C] text-xs mt-1.5 truncate">{sectorLabel}</p>
+                            <p className="text-white/30 text-xs truncate">{entry.category_label || entry.category}</p>
+                            <div className="mt-2 pt-2 border-t border-white/5 flex items-center justify-between">
+                              <span className="text-white/30 text-xs truncate">{nom.registrant_name}</span>
+                              <a
+                                href={entry.photo_url}
+                                download
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="text-[#C9A84C] hover:text-[#e0c060] transition-colors shrink-0 ml-2"
+                                title="Download photo"
+                              >
+                                <Download size={13} />
+                              </a>
+                            </div>
+                          </div>
+                        </div>
+                      );
+                    })}
+                  </div>
+                );
+              })()}
+            </div>
+          )}
         </main>
       </div>
 
@@ -687,6 +763,27 @@ function NominationModal({
                   <div className="flex gap-2 pt-2 border-t border-white/5">
                     <span className="text-white/40 text-xs w-24 shrink-0 mt-0.5">Why deserves</span>
                     <span className="text-white/65 text-xs leading-relaxed">{(entries[0] as NominationEntry).why_deserves}</span>
+                  </div>
+                )}
+                {(entries[0] as NominationEntry).photo_url && (
+                  <div className="flex gap-2 pt-2 border-t border-white/5 items-center">
+                    <span className="text-white/40 text-xs w-24 shrink-0">Photo</span>
+                    <div className="flex items-center gap-3">
+                      <img
+                        src={(entries[0] as NominationEntry).photo_url}
+                        alt="Nominee"
+                        className="w-14 h-14 object-cover rounded-lg border border-white/10"
+                        onError={(e) => { (e.target as HTMLImageElement).style.display = "none"; }}
+                      />
+                      <a
+                        href={(entries[0] as NominationEntry).photo_url}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="flex items-center gap-1.5 text-[#C9A84C] text-xs hover:underline"
+                      >
+                        <ExternalLink size={12} /> View / Download
+                      </a>
+                    </div>
                   </div>
                 )}
               </div>
