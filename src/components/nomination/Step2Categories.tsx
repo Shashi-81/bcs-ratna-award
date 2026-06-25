@@ -146,6 +146,7 @@ export function Step2Categories({
     if (!details.nominee_name.trim()) errs.nominee_name = "Nominee name is required";
     if (!details.company_name.trim()) errs.company_name = "Company / Brand name is required";
     if (!details.why_deserves.trim()) errs.why_deserves = "Please explain why the nominee deserves to win";
+    else if (details.why_deserves.length > 500) errs.why_deserves = "Please keep this under 500 characters";
     setDetailErrors(errs);
     if (Object.keys(errs).length > 0) {
       setTimeout(() => {
@@ -226,7 +227,6 @@ export function Step2Categories({
                     {selectedCount > 0 && (
                       <p className="text-[#C9A84C] text-xs mt-0.5 font-medium">
                         {selectedCount} categor{selectedCount === 1 ? "y" : "ies"} selected
-                        · ₹{(selectedCount * PRICE_PER_CATEGORY).toLocaleString("en-IN")}
                       </p>
                     )}
                   </div>
@@ -359,10 +359,11 @@ export function Step2Categories({
                 onChange={(e) => setDetail("why_deserves", e.target.value)}
                 placeholder="Describe the nominee's achievements, impact and contribution to the industry..."
                 className={inputCls(!!detailErrors.why_deserves) + " resize-none"}
+                maxLength={500}
               />
               <div className="flex items-center justify-between mt-1">
                 <ErrMsg msg={detailErrors.why_deserves} />
-                <span className={`text-xs ml-auto ${details.why_deserves.length > 480 ? "text-amber-400" : "text-white/25"}`}>
+                <span className={`text-xs ml-auto ${details.why_deserves.length >= 500 ? "text-red-400" : details.why_deserves.length > 480 ? "text-amber-400" : "text-white/25"}`}>
                   {details.why_deserves.length}/500
                 </span>
               </div>
@@ -436,9 +437,6 @@ function CategoryCheckboxGrid({
             <span className={`text-xs leading-relaxed transition-colors flex-1 min-w-0 ${checked ? "text-white font-medium" : "text-white/55"}`}>
               {cat.label}
             </span>
-            {checked && (
-              <span className="shrink-0 text-[#C9A84C] text-xs font-bold self-start mt-0.5 pl-2">₹11,800</span>
-            )}
           </button>
         );
       })}

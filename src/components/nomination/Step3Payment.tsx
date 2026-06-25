@@ -4,7 +4,7 @@ import type { EntryForm } from "./Step2Categories";
 import { SECTORS, getCategoriesForSector, PRICE_PER_CATEGORY, calcTotal } from "@/lib/nomination-data";
 
 export interface PaymentData {
-  method: "razorpay";
+  method: "razorpay" | "pay_later";
   screenshot_file: null;
   transaction_id: string;
   payment_reference: string;
@@ -62,6 +62,7 @@ export function Step3Payment({
   const [declaration, setDeclaration] = useState(false);
   const [errors, setErrors] = useState<Record<string, string>>({});
   const [razorpayLoading, setRazorpayLoading] = useState(false);
+  const [payLaterLoading, setPayLaterLoading] = useState(false);
 
   async function handleRazorpay() {
     if (!declaration) {
@@ -132,6 +133,26 @@ export function Step3Payment({
       setRazorpayLoading(false);
     });
     rzp.open();
+  }
+
+  async function handlePayLater() {
+    if (!declaration) {
+      setErrors({ declaration: "Please agree to the declaration before proceeding" });
+      document.getElementById("declaration-section")?.scrollIntoView({ behavior: "smooth", block: "center" });
+      return;
+    }
+    setPayLaterLoading(true);
+    try {
+      await onSubmit({
+        method: "pay_later",
+        screenshot_file: null,
+        transaction_id: "",
+        payment_reference: "",
+        declaration: true,
+      });
+    } finally {
+      setPayLaterLoading(false);
+    }
   }
 
   return (
@@ -252,16 +273,28 @@ export function Step3Payment({
         </button>
         <button
           type="button"
+          onClick={handlePayLater}
+          disabled={isSubmitting || razorpayLoading || payLaterLoading}
+          className="btn-outline-gold text-sm justify-center sm:order-3"
+        >
+          {payLaterLoading ? (
+            <><span className="w-4 h-4 border-2 border-[#C9A84C] border-t-transparent rounded-full animate-spin" />Submitting…</>
+          ) : (
+            <>Pay Later</>
+          )}
+        </button>
+        <button
+          type="button"
           onClick={handleRazorpay}
-          disabled={isSubmitting || razorpayLoading}
-          className="btn-gold flex-1 text-sm justify-center sm:order-3"
+          disabled={isSubmitting || razorpayLoading || payLaterLoading}
+          className="btn-gold flex-1 text-sm justify-center sm:order-4"
         >
           {razorpayLoading ? (
             <><span className="w-4 h-4 border-2 border-black border-t-transparent rounded-full animate-spin" />Opening Payment…</>
           ) : isSubmitting ? (
             <><span className="w-4 h-4 border-2 border-black border-t-transparent rounded-full animate-spin" />Processing…</>
           ) : (
-            <><Lock size={14} />Pay Now — ₹{total.toLocaleString("en-IN")}</>
+            <><Lock size={14} />Pay Now</>
           )}
         </button>
       </div>

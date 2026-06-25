@@ -193,13 +193,15 @@ function NominatePage() {
 
   async function handleStep3Submit(payment: PaymentData) {
     if (!draftId) {
-      toast.error("No draft found. Please go back and save your selections.");
+      toast.error("Draft not saved yet. Please go back to Step 2 and wait for the auto-save to complete, then try again.");
       return;
     }
     setIsSubmitting(true);
     try {
       const id = await finaliseSubmission(draftId, entries, payment);
-      sessionStorage.removeItem("nominationDraftId");
+      // Clear both localStorage keys that hold the draft
+      localStorage.removeItem("nominationDraftId");
+      localStorage.removeItem("nominationDraftData");
       setNominationId(id);
       setIsDone(true);
       window.scrollTo({ top: 0, behavior: "smooth" });
@@ -212,6 +214,10 @@ function NominatePage() {
 
   // Save draft manually (triggered from Step 3 "Save Draft" button)
   async function handleSaveDraft() {
+    if (!registration) {
+      toast.error("Please complete Step 1 first before saving a draft.");
+      return;
+    }
     toast.info("Saving draft…");
     const success = await retryAutoSave();
     if (success) {
@@ -292,7 +298,7 @@ function NominatePage() {
               <h2 className="font-display text-2xl md:text-3xl font-bold text-white">
                 {step === 1 && "Personal & Company Information"}
                 {step === 2 && "Select Award Categories"}
-                {step === 3 && "Review & Payment"}
+                {step === 3 && "Review & Pay"}
               </h2>
               <p className="text-white/60 text-sm md:text-base mt-2 leading-relaxed">
                 {step === 1 && "Fields marked * are mandatory"}
