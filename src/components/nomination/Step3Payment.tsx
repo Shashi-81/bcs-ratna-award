@@ -275,7 +275,8 @@ export function Step3Payment({
           type="button"
           onClick={handlePayLater}
           disabled={isSubmitting || razorpayLoading || payLaterLoading}
-          className="hidden btn-outline-gold text-sm justify-center sm:order-3"
+          className="btn-outline-gold text-sm justify-center sm:order-3"
+          style={{ display: "none" }}
         >
           {payLaterLoading ? (
             <><span className="w-4 h-4 border-2 border-[#C9A84C] border-t-transparent rounded-full animate-spin" />Submitting…</>
