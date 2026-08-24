@@ -296,25 +296,35 @@ function Gallery() {
     { year: "2026", src: "/assets/Past%20event%20images/award2026/Avinnash-pandey.png" },
     { year: "2026", src: "/assets/Past%20event%20images/award2026/Best-election-Coverage-NDTV.png" },
     { year: "2026", src: "/assets/Past%20event%20images/award2026/Decode-with-Sudhir-Chaudhary.png" },
+    { year: "2026", src: "/assets/Past%20event%20images/award2026/Ganga%20Mai%20ki%20Bitiya.jpg" },
     { year: "2026", src: "/assets/Past%20event%20images/award2026/GTC-punjabi.png" },
+    { year: "2026", src: "/assets/Past%20event%20images/award2026/GTPL%20s2.jpg" },
     { year: "2026", src: "/assets/Past%20event%20images/award2026/GTPL-infinity.png" },
-    { year: "2026", src: "/assets/Past%20event%20images/award2026/Play-box-tv.png" },
+    { year: "2026", src: "/assets/Past%20event%20images/award2026/KEE%20OTTR.png" },
+    { year: "2026", src: "/assets/Past%20event%20images/award2026/Manoj%20Tyagi%20CEO.jpg" },
     { year: "2026", src: "/assets/Past%20event%20images/award2026/Playbox-TV.png" },
     { year: "2026", src: "/assets/Past%20event%20images/award2026/SALAAM-TV.png" },
     { year: "2026", src: "/assets/Past%20event%20images/award2026/sanskar-tv.png" },
     { year: "2026", src: "/assets/Past%20event%20images/award2026/Sports-magic-den.png" },
     { year: "2026", src: "/assets/Past%20event%20images/award2026/Sports-Magic-Hathway.png" },
     { year: "2026", src: "/assets/Past%20event%20images/award2026/Star-sports-campaign-during-tata-ipl.png" },
+    { year: "2026", src: "/assets/Past%20event%20images/award2026/Sudhir%20Chaudhary%20Icon%20of%20the%20YEAR.jpg" },
     { year: "2026", src: "/assets/Past%20event%20images/award2026/Syed-Suhail.png" },
+    { year: "2026", src: "/assets/Past%20event%20images/award2026/Times%20Now.jpg" },
     { year: "2026", src: "/assets/Past%20event%20images/award2026/Times-Now-NavBharat.png" },
     { year: "2026", src: "/assets/Past%20event%20images/award2026/Times-now.png" },
+    { year: "2026", src: "/assets/Past%20event%20images/award2026/UCN.jpg" },
     { year: "2026", src: "/assets/Past%20event%20images/award2026/Unite-8-Sports.png" },
     { year: "2026", src: "/assets/Past%20event%20images/award2026/Wheel-of-fortune-set.png" },
+    { year: "2026", src: "/assets/Past%20event%20images/award2026/Zee%20News%20NewsEoom.jpg" },
+    { year: "2026", src: "/assets/Past%20event%20images/award2026/zee%20News.jpg" },
+    { year: "2026", src: "/assets/Past%20event%20images/award2026/kccl.jpg" },
   ];
   const latestPhotos = images.filter((item) => item.year === "2026");
   
   const [openIndex, setOpenIndex] = useState<number | null>(null);
-  const [latestIndex, setLatestIndex] = useState(0);
+  const [latestStart, setLatestStart] = useState(0);
+  const [latestVisibleCount, setLatestVisibleCount] = useState(3);
 
   const handleKeyDown = (e: KeyboardEvent) => {
     if (openIndex === null) return;
@@ -329,15 +339,30 @@ function Gallery() {
   }, [openIndex]);
 
   useEffect(() => {
+    const updateVisibleCount = () => {
+      if (window.innerWidth < 640) setLatestVisibleCount(1);
+      else if (window.innerWidth < 1024) setLatestVisibleCount(2);
+      else setLatestVisibleCount(3);
+    };
+    updateVisibleCount();
+    window.addEventListener("resize", updateVisibleCount);
+    return () => window.removeEventListener("resize", updateVisibleCount);
+  }, []);
+
+  useEffect(() => {
     const timer = window.setInterval(() => {
-      setLatestIndex((current) => (current + 1) % latestPhotos.length);
+      setLatestStart((current) => (current + latestVisibleCount) % latestPhotos.length);
     }, 3500);
     return () => window.clearInterval(timer);
-  }, [latestPhotos.length]);
+  }, [latestPhotos.length, latestVisibleCount]);
+
+  const visibleLatestPhotos = Array.from({ length: latestVisibleCount }, (_, offset) => ({
+    photo: latestPhotos[(latestStart + offset) % latestPhotos.length],
+    index: (latestStart + offset) % latestPhotos.length,
+  }));
 
   const openLatestPhoto = (index: number) => {
     const photo = latestPhotos[index];
-    setLatestIndex(index);
     setOpenIndex(images.findIndex((item) => item.src === photo.src));
   };
 
@@ -355,47 +380,51 @@ function Gallery() {
           </p>
         </div>
 
-        <div className="mx-auto mb-8 max-w-5xl">
-          <div className="relative overflow-hidden rounded-xl border border-[#C9A84C]/35 bg-[#080808] shadow-[0_18px_50px_rgba(0,0,0,0.4)]" style={{ height: "min(68vw, 520px)" }}>
+        <div className="mx-auto mb-8 max-w-6xl">
+          <div className="relative overflow-hidden rounded-xl border border-[#C9A84C]/35 bg-[#080808] shadow-[0_18px_50px_rgba(0,0,0,0.4)]" style={{ height: "min(125vw, 520px)" }}>
             <AnimatePresence mode="wait" initial={false}>
-              <motion.button
-                key={latestPhotos[latestIndex].src}
-                type="button"
-                initial={{ opacity: 0, y: 45 }}
+              <motion.div
+                key={`${latestStart}-${latestVisibleCount}`}
+                initial={{ opacity: 0, y: 35 }}
                 animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: -45 }}
+                exit={{ opacity: 0, y: -35 }}
                 transition={{ duration: 0.65, ease: "easeInOut" }}
-                onClick={() => openLatestPhoto(latestIndex)}
-                className="absolute inset-0 h-full w-full cursor-zoom-in"
-                aria-label={`Open Award Ceremony 2026 photo ${latestIndex + 1}`}
+                className="absolute inset-0 grid h-full grid-cols-1 gap-3 p-3 sm:grid-cols-2 lg:grid-cols-3"
               >
-                <img
-                  src={latestPhotos[latestIndex].src}
-                  alt={`Award Ceremony 2026 photo ${latestIndex + 1}`}
-                  className="h-full w-full object-contain"
-                />
-                <div className="absolute inset-x-0 bottom-0 flex items-end justify-between bg-gradient-to-t from-black/80 to-transparent px-5 pb-5 pt-14 text-left">
-                  <div>
-                    <p className="font-cinzel text-[10px] tracking-[0.25em] text-[#C9A84C]">LATEST EDITION</p>
-                    <p className="font-display text-2xl font-bold text-white">Award Ceremony 2026</p>
-                  </div>
-                  <span className="font-cinzel text-[10px] text-white/60">{latestIndex + 1} / {latestPhotos.length}</span>
-                </div>
-              </motion.button>
+                {visibleLatestPhotos.map(({ photo, index }) => (
+                  <button
+                    key={photo.src}
+                    type="button"
+                    onClick={() => openLatestPhoto(index)}
+                    className="group relative min-h-0 overflow-hidden rounded-lg border border-[#C9A84C]/20 bg-black/60 cursor-zoom-in"
+                    aria-label={`Open Award Ceremony 2026 photo ${index + 1}`}
+                  >
+                    <img
+                      src={photo.src}
+                      alt={`Award Ceremony 2026 photo ${index + 1}`}
+                      className="h-full w-full object-contain transition-transform duration-700 group-hover:scale-105"
+                    />
+                    <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/80 to-transparent px-3 pb-3 pt-12 text-left">
+                      <p className="font-cinzel text-[9px] tracking-[0.2em] text-[#C9A84C]">AWARD CEREMONY 2026</p>
+                      <p className="mt-1 text-[10px] text-white/60">{index + 1} / {latestPhotos.length}</p>
+                    </div>
+                  </button>
+                ))}
+              </motion.div>
             </AnimatePresence>
 
             <button
               type="button"
-              onClick={() => openLatestPhoto((latestIndex - 1 + latestPhotos.length) % latestPhotos.length)}
-              className="absolute left-3 top-1/2 z-10 flex h-10 w-10 -translate-y-1/2 items-center justify-center rounded-full bg-black/65 text-[#C9A84C] transition hover:bg-[#C9A84C] hover:text-black"
+              onClick={() => setLatestStart((latestStart - latestVisibleCount + latestPhotos.length) % latestPhotos.length)}
+              className="absolute left-1 top-1/2 z-10 flex h-9 w-9 -translate-y-1/2 items-center justify-center rounded-full bg-black/70 text-[#C9A84C] transition hover:bg-[#C9A84C] hover:text-black sm:left-3 sm:h-10 sm:w-10"
               aria-label="Previous Award Ceremony 2026 photo"
             >
               <ChevronUp size={20} />
             </button>
             <button
               type="button"
-              onClick={() => openLatestPhoto((latestIndex + 1) % latestPhotos.length)}
-              className="absolute right-3 top-1/2 z-10 flex h-10 w-10 -translate-y-1/2 items-center justify-center rounded-full bg-black/65 text-[#C9A84C] transition hover:bg-[#C9A84C] hover:text-black"
+              onClick={() => setLatestStart((latestStart + latestVisibleCount) % latestPhotos.length)}
+              className="absolute right-1 top-1/2 z-10 flex h-9 w-9 -translate-y-1/2 items-center justify-center rounded-full bg-black/70 text-[#C9A84C] transition hover:bg-[#C9A84C] hover:text-black sm:right-3 sm:h-10 sm:w-10"
               aria-label="Next Award Ceremony 2026 photo"
             >
               <ChevronDown size={20} />
