@@ -1,7 +1,7 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
-import { motion } from "framer-motion";
-import { ArrowRight, Award, Globe, Handshake, TrendingUp, Play } from "lucide-react";
+import { AnimatePresence, motion } from "framer-motion";
+import { ArrowRight, Award, ChevronDown, ChevronUp, Globe, Handshake, TrendingUp, Play } from "lucide-react";
 import { Navigation } from "@/components/site/Navigation";
 import { Footer } from "@/components/site/Footer";
 import { AmbientBackground } from "@/components/site/AmbientBackground";
@@ -13,16 +13,16 @@ export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
       { title: "BCS Ratna Award 2026 — India's Premier Broadcasting & Media Award" },
-      { name: "description", content: "Celebrating Excellence in Broadcasting, Digital Media & Technology since 2010. Nominations open for BCS Ratna Award 2026." },
+      { name: "description", content: "Celebrating Excellence in Broadcasting, Digital Media & Technology since 2010." },
       { name: "robots", content: "index, follow" },
       { property: "og:title", content: "BCS Ratna Award 2026" },
-      { property: "og:description", content: "India's Most Prestigious Media Industry Award. Nominations Open." },
+      { property: "og:description", content: "India's Most Prestigious Media Industry Award." },
       { property: "og:type", content: "website" },
       { property: "og:url", content: "https://bcsratnaaward.com/" },
       { property: "og:image", content: "/assets/BCS-Website-Logo.png" },
       { name: "twitter:card", content: "summary_large_image" },
       { name: "twitter:title", content: "BCS Ratna Award 2026" },
-      { name: "twitter:description", content: "India's Most Prestigious Media Industry Award. Nominations Open." },
+      { name: "twitter:description", content: "India's Most Prestigious Media Industry Award." },
     ],
     links: [{ rel: "canonical", href: "https://bcsratnaaward.com/" }],
     scripts: [{
@@ -55,30 +55,6 @@ export const Route = createFileRoute("/")({
   component: HomePage,
 });
 
-const TARGET = new Date("2026-06-30T18:00:00+05:30").getTime();
-function useCountdown() {
-  const [t, setT] = useState({ d: 0, h: 0, m: 0, s: 0 });
-  const [expired, setExpired] = useState(false);
-  useEffect(() => {
-    const tick = () => {
-      const diff = Math.max(0, TARGET - Date.now());
-      if (diff === 0) {
-        setExpired(true);
-      }
-      setT({
-        d: Math.floor(diff / 86400000),
-        h: Math.floor((diff / 3600000) % 24),
-        m: Math.floor((diff / 60000) % 60),
-        s: Math.floor((diff / 1000) % 60),
-      });
-    };
-    tick();
-    const id = setInterval(tick, 1000);
-    return () => clearInterval(id);
-  }, []);
-  return { ...t, expired };
-}
-
 function HomePage() {
   return (
     <div className="bg-background min-h-screen">
@@ -89,19 +65,18 @@ function HomePage() {
       <Gallery />
       <Categories />
       {/* <VIPs /> */}
+      <Shorts />
       <Videos />
       <Chairman />
       <WhyUs />
       <Partners />
       <StatsBottom />
-      <CtaBanner />
       <Footer />
     </div>
   );
 }
 
 function Hero() {
-  const { d, h, m, s, expired } = useCountdown();
   return (
     <section className="relative flex items-center justify-center pt-[72px] pb-8 md:min-h-screen md:pb-0" style={{ overflow: "hidden", minHeight: "calc(100svh)" }}>
       <AmbientBackground />
@@ -188,46 +163,6 @@ function Hero() {
           className="mt-6 sm:mt-12"
         >
           <p className="font-cinzel text-[10px] sm:text-xs text-[#C9A84C] mb-2 sm:mb-3">The 12th Edition · BCS Ratna Award 2026</p>
-          {expired ? (
-            <div className="glass-card px-8 py-6">
-              <p className="font-cinzel text-xl sm:text-3xl text-[#C9A84C] font-bold">REGISTRATIONS CLOSED</p>
-            </div>
-          ) : (
-            <>
-              <p className="font-cinzel text-[10px] sm:text-xs text-[#C9A84C] mb-3">REGISTRATION CLOSES</p>
-              <div className="flex justify-center gap-2 sm:gap-5">
-                {[["Days", d], ["Hours", h], ["Minutes", m], ["Seconds", s]].map(([label, val]) => (
-                  <div key={label as string} className="glass-card px-3 py-3 sm:px-5 sm:py-4 min-w-[64px] sm:min-w-[88px]">
-                    <div className="font-display text-2xl sm:text-4xl text-gold-gradient font-bold">
-                      {String(val).padStart(2, "0")}
-                    </div>
-                    <div className="font-cinzel text-[8px] sm:text-[9px] text-white/60 mt-1">{label}</div>
-                  </div>
-                ))}
-              </div>
-              {/* Highlight text + date below counter */}
-              <div className="mt-5 space-y-3">
-                <div className="flex items-center justify-center gap-3">
-                  <div className="h-px w-12 bg-[#C9A84C]/40" />
-                  <p className="font-cinzel text-[11px] sm:text-xs text-[#C9A84C] tracking-widest animate-pulse">
-                    🏆 NOMINATIONS ARE OPEN — SUBMIT NOW
-                  </p>
-                  <div className="h-px w-12 bg-[#C9A84C]/40" />
-                </div>
-                <div className="flex flex-row items-center justify-center gap-3">
-                  <div className="bg-[#C9A84C]/15 border border-[#C9A84C]/50 rounded-xl px-3 py-2 text-center flex-1 max-w-[160px]">
-                    <p className="font-cinzel text-[8px] text-[#C9A84C] tracking-wide">LAST DATE</p>
-                    <p className="font-display text-sm font-bold text-white mt-0.5">June 30, 2026</p>
-                  </div>
-                  <div className="h-8 w-px bg-white/15" />
-                  <div className="bg-white/5 border border-white/15 rounded-xl px-3 py-2 text-center flex-1 max-w-[160px]">
-                    <p className="font-cinzel text-[8px] text-white/50 tracking-wide">CEREMONY</p>
-                    <p className="font-display text-sm font-bold text-white mt-0.5">5th Aug 2026</p>
-                  </div>
-                </div>
-              </div>
-            </>
-          )}
         </motion.div>
 
         <motion.div
@@ -237,7 +172,6 @@ function Hero() {
           className="mt-5 sm:mt-12 flex flex-col sm:flex-row gap-3 justify-center"
         >
           <Link to="/categories" className="btn-outline-gold text-sm px-6 py-3">Explore Categories</Link>
-          <Link to="/nominate" className="btn-gold text-sm px-6 py-3 justify-center">Nominate Now</Link>
         </motion.div>
       </div>
     </section>
@@ -248,14 +182,14 @@ function BannerImage() {
   return (
     <section className="hidden sm:block py-4 sm:py-6 lg:py-8">
       <div className="max-w-7xl mx-auto px-4 sm:px-6">
-        <Link to="/nominate" className="block overflow-hidden rounded-xl sm:rounded-[1.5rem] shadow-[0_22px_70px_rgba(0,0,0,0.45)]">
+         <div className="block overflow-hidden rounded-xl sm:rounded-[1.5rem] shadow-[0_22px_70px_rgba(0,0,0,0.45)]">
           <img
             src="/assets/banner.jpeg"
             alt="BCS Ratna Award banner"
             className="w-full h-auto object-contain block"
             loading="eager"
           />
-        </Link>
+         </div>
       </div>
     </section>
   );
@@ -336,7 +270,7 @@ function Categories() {
               <p className="text-sm text-white/60 mt-3 leading-relaxed">{c.description}</p>
               <div className="mt-4 pt-4 border-t border-[#C9A84C]/15 flex items-center justify-between">
                 <span className="text-[#C9A84C] text-xs font-cinzel">{c.subcategories.length} categories</span>
-                <span className="text-[#C9A84C] text-xs">View & Nominate →</span>
+                <span className="text-[#C9A84C] text-xs">View Categories →</span>
               </div>
             </Link>
           ))}
@@ -359,9 +293,28 @@ function Gallery() {
     { year: "2020", src: `${galleryRoot}Zee Action.JPG.jpeg` },
     { year: "2021", src: `${galleryRoot}_MG_2191.JPG.jpeg` },
     { year: "2022", src: `${galleryRoot}_MG_2259.JPG.jpeg` },
+    { year: "2026", src: "/assets/Past%20event%20images/award2026/Avinnash-pandey.png" },
+    { year: "2026", src: "/assets/Past%20event%20images/award2026/Best-election-Coverage-NDTV.png" },
+    { year: "2026", src: "/assets/Past%20event%20images/award2026/Decode-with-Sudhir-Chaudhary.png" },
+    { year: "2026", src: "/assets/Past%20event%20images/award2026/GTC-punjabi.png" },
+    { year: "2026", src: "/assets/Past%20event%20images/award2026/GTPL-infinity.png" },
+    { year: "2026", src: "/assets/Past%20event%20images/award2026/Play-box-tv.png" },
+    { year: "2026", src: "/assets/Past%20event%20images/award2026/Playbox-TV.png" },
+    { year: "2026", src: "/assets/Past%20event%20images/award2026/SALAAM-TV.png" },
+    { year: "2026", src: "/assets/Past%20event%20images/award2026/sanskar-tv.png" },
+    { year: "2026", src: "/assets/Past%20event%20images/award2026/Sports-magic-den.png" },
+    { year: "2026", src: "/assets/Past%20event%20images/award2026/Sports-Magic-Hathway.png" },
+    { year: "2026", src: "/assets/Past%20event%20images/award2026/Star-sports-campaign-during-tata-ipl.png" },
+    { year: "2026", src: "/assets/Past%20event%20images/award2026/Syed-Suhail.png" },
+    { year: "2026", src: "/assets/Past%20event%20images/award2026/Times-Now-NavBharat.png" },
+    { year: "2026", src: "/assets/Past%20event%20images/award2026/Times-now.png" },
+    { year: "2026", src: "/assets/Past%20event%20images/award2026/Unite-8-Sports.png" },
+    { year: "2026", src: "/assets/Past%20event%20images/award2026/Wheel-of-fortune-set.png" },
   ];
+  const latestPhotos = images.filter((item) => item.year === "2026");
   
   const [openIndex, setOpenIndex] = useState<number | null>(null);
+  const [latestIndex, setLatestIndex] = useState(0);
 
   const handleKeyDown = (e: KeyboardEvent) => {
     if (openIndex === null) return;
@@ -374,6 +327,19 @@ function Gallery() {
     window.addEventListener("keydown", handleKeyDown);
     return () => window.removeEventListener("keydown", handleKeyDown);
   }, [openIndex]);
+
+  useEffect(() => {
+    const timer = window.setInterval(() => {
+      setLatestIndex((current) => (current + 1) % latestPhotos.length);
+    }, 3500);
+    return () => window.clearInterval(timer);
+  }, [latestPhotos.length]);
+
+  const openLatestPhoto = (index: number) => {
+    const photo = latestPhotos[index];
+    setLatestIndex(index);
+    setOpenIndex(images.findIndex((item) => item.src === photo.src));
+  };
 
   return (
     <section className="py-12 md:py-20">
@@ -389,8 +355,56 @@ function Gallery() {
           </p>
         </div>
 
+        <div className="mx-auto mb-8 max-w-5xl">
+          <div className="relative overflow-hidden rounded-xl border border-[#C9A84C]/35 bg-[#080808] shadow-[0_18px_50px_rgba(0,0,0,0.4)]" style={{ height: "min(68vw, 520px)" }}>
+            <AnimatePresence mode="wait" initial={false}>
+              <motion.button
+                key={latestPhotos[latestIndex].src}
+                type="button"
+                initial={{ opacity: 0, y: 45 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -45 }}
+                transition={{ duration: 0.65, ease: "easeInOut" }}
+                onClick={() => openLatestPhoto(latestIndex)}
+                className="absolute inset-0 h-full w-full cursor-zoom-in"
+                aria-label={`Open Award Ceremony 2026 photo ${latestIndex + 1}`}
+              >
+                <img
+                  src={latestPhotos[latestIndex].src}
+                  alt={`Award Ceremony 2026 photo ${latestIndex + 1}`}
+                  className="h-full w-full object-contain"
+                />
+                <div className="absolute inset-x-0 bottom-0 flex items-end justify-between bg-gradient-to-t from-black/80 to-transparent px-5 pb-5 pt-14 text-left">
+                  <div>
+                    <p className="font-cinzel text-[10px] tracking-[0.25em] text-[#C9A84C]">LATEST EDITION</p>
+                    <p className="font-display text-2xl font-bold text-white">Award Ceremony 2026</p>
+                  </div>
+                  <span className="font-cinzel text-[10px] text-white/60">{latestIndex + 1} / {latestPhotos.length}</span>
+                </div>
+              </motion.button>
+            </AnimatePresence>
+
+            <button
+              type="button"
+              onClick={() => openLatestPhoto((latestIndex - 1 + latestPhotos.length) % latestPhotos.length)}
+              className="absolute left-3 top-1/2 z-10 flex h-10 w-10 -translate-y-1/2 items-center justify-center rounded-full bg-black/65 text-[#C9A84C] transition hover:bg-[#C9A84C] hover:text-black"
+              aria-label="Previous Award Ceremony 2026 photo"
+            >
+              <ChevronUp size={20} />
+            </button>
+            <button
+              type="button"
+              onClick={() => openLatestPhoto((latestIndex + 1) % latestPhotos.length)}
+              className="absolute right-3 top-1/2 z-10 flex h-10 w-10 -translate-y-1/2 items-center justify-center rounded-full bg-black/65 text-[#C9A84C] transition hover:bg-[#C9A84C] hover:text-black"
+              aria-label="Next Award Ceremony 2026 photo"
+            >
+              <ChevronDown size={20} />
+            </button>
+          </div>
+        </div>
+
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-3 sm:gap-4">
-          {images.map((item, i) => (
+          {images.filter((item) => item.year !== "2026").map((item, i) => (
             <button
               key={i}
               onClick={() => setOpenIndex(i)}
@@ -473,6 +487,103 @@ function WhyUs() {
               <p className="text-sm text-white/60 mt-3 leading-relaxed">{it.text}</p>
             </div>
           ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function Shorts() {
+  const shorts = [
+    "qqFRxeKV978",
+    "ebYF3pvRN-w",
+    "wXJ-IneTYVw",
+    "Fa1mbgroie4",
+    "XtcA9udTyts",
+  ];
+  const [shortIndex, setShortIndex] = useState(0);
+  const [visibleCount, setVisibleCount] = useState(4);
+
+  useEffect(() => {
+    const updateVisibleCount = () => {
+      if (window.innerWidth < 640) setVisibleCount(1);
+      else if (window.innerWidth < 768) setVisibleCount(2);
+      else if (window.innerWidth < 1024) setVisibleCount(3);
+      else setVisibleCount(4);
+    };
+    updateVisibleCount();
+    window.addEventListener("resize", updateVisibleCount);
+    return () => window.removeEventListener("resize", updateVisibleCount);
+  }, []);
+
+  useEffect(() => {
+    const timer = window.setInterval(() => {
+      setShortIndex((current) => (current + 1) % shorts.length);
+    }, 4000);
+    return () => window.clearInterval(timer);
+  }, [shorts.length]);
+
+  const visibleShorts = Array.from({ length: visibleCount }, (_, offset) =>
+    shorts[(shortIndex + offset) % shorts.length]
+  );
+
+  return (
+    <section className="border-y border-[#C9A84C]/15 bg-[#0a0a0a] py-12 md:py-20 overflow-hidden">
+      <div className="max-w-7xl mx-auto px-6">
+        <div className="text-center mb-10 md:mb-12">
+          <p className="font-cinzel text-xs text-[#C9A84C] mb-3">QUICK MOMENTS</p>
+          <h2 className="font-display text-4xl md:text-5xl font-bold text-gold-gradient">
+            Short <span className="text-white">Reels</span>
+          </h2>
+          <div className="gold-divider" />
+          <p className="text-white/60 mt-4 text-sm md:text-base">A closer look at the moments behind BCS Ratna.</p>
+        </div>
+
+        <AnimatePresence mode="wait" initial={false}>
+          <motion.div
+            key={`${shortIndex}-${visibleCount}`}
+            initial={{ opacity: 0, x: 60 }}
+            animate={{ opacity: 1, x: 0 }}
+            exit={{ opacity: 0, x: -60 }}
+            transition={{ duration: 0.65, ease: "easeInOut" }}
+            className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4"
+          >
+            {visibleShorts.map((id) => (
+              <a
+                key={id}
+                href={`https://youtube.com/shorts/${id}`}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="group relative aspect-[9/14] overflow-hidden rounded-xl border border-[#C9A84C]/25 bg-black shadow-[0_10px_35px_rgba(0,0,0,0.35)]"
+                aria-label="Watch BCS Ratna Award short reel"
+              >
+                <img
+                  src={`https://i.ytimg.com/vi/${id}/hqdefault.jpg`}
+                  alt="BCS Ratna Award short reel"
+                  className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
+                  loading="lazy"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/75 via-transparent to-black/10" />
+                <div className="absolute inset-0 flex items-center justify-center">
+                  <span className="flex h-14 w-14 items-center justify-center rounded-full bg-[#C9A84C] text-black shadow-[0_0_25px_rgba(201,168,76,0.45)] transition-transform duration-300 group-hover:scale-110">
+                    <Play size={22} fill="currentColor" className="ml-1" />
+                  </span>
+                </div>
+                <span className="absolute bottom-4 left-4 font-cinzel text-[10px] tracking-[0.2em] text-white/85">WATCH SHORT</span>
+              </a>
+            ))}
+          </motion.div>
+        </AnimatePresence>
+
+        <div className="mt-8 flex justify-center">
+          <a
+            href="https://www.youtube.com/@AavishkarMediaGroup/shorts"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="btn-outline-gold inline-flex items-center gap-2"
+          >
+            View All Shorts <ArrowRight size={16} />
+          </a>
         </div>
       </div>
     </section>
@@ -758,22 +869,3 @@ function StatsBottom() {
   );
 }
 
-function CtaBanner() {
-  return (
-    <section className="relative overflow-hidden" style={{ paddingTop: "96px", paddingBottom: "0" }}>
-      <div className="absolute inset-0 bg-gold-gradient opacity-95" />
-      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,transparent,rgba(0,0,0,0.6))]" />
-      {/* Dark fade at bottom to separate from footer */}
-      <div className="absolute bottom-0 left-0 right-0 h-16" style={{ background: "linear-gradient(to bottom, transparent, rgba(0,0,0,0.8))" }} />
-      <div className="relative max-w-4xl mx-auto px-6 text-center pb-24">
-        <p className="font-cinzel text-xs text-black/80 mb-4">Nominations Now Open</p>
-        <h2 className="font-display text-3xl md:text-5xl font-black text-black leading-tight">
-          BCS Ratna Award 2026
-        </h2>
-        <p className="text-black/80 mt-6 max-w-2xl mx-auto">
-          Join the legends. Stake your claim. Be celebrated at India's most prestigious media gala.
-        </p>
-      </div>
-    </section>
-  );
-}

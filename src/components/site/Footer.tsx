@@ -40,7 +40,6 @@ export function Footer() {
           <FooterCol title="Event Info" links={[
             { to: "/schedule", label: "Schedule & Programme" },
             { to: "/venue", label: "Venue & Directions" },
-            { to: "/nominate", label: "Nominate Now" },
           ]} />
 
           <div>

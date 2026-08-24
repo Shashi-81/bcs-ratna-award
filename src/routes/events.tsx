@@ -53,9 +53,10 @@ const EDITION_LABELS: Record<number, { label: string; roman: string }> = {
   2022: { label: "13th Edition (XIII)", roman: "XIII" },
   2023: { label: "14th Edition (XIV)", roman: "XIV" },
   2025: { label: "15th Edition (XV)", roman: "XV" },
+  2026: { label: "16th Edition (XVI)", roman: "XVI" },
 };
 
-const YEARS_LIST = [2025, 2019, 2018, 2017, 2016, 2015, 2014, 2013, 2012, 2011, 2010];
+const YEARS_LIST = [2026, 2025, 2019, 2018, 2017, 2016, 2015, 2014, 2013, 2012, 2011, 2010];
 
 function getAssetPhotos(year: number): string[] {
   const asset = YEAR_ASSET_MAP[year];

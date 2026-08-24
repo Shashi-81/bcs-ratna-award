@@ -107,13 +107,6 @@ export function Navigation() {
             >
               Contact
             </Link>
-            <Link
-              to="/nominate"
-              className="nominate-btn"
-              style={{ whiteSpace: "nowrap", padding: "0 22px", height: "40px", display: "inline-flex", alignItems: "center" }}
-            >
-              Nominate Now
-            </Link>
           </div>
         </div>
 
@@ -237,25 +230,6 @@ export function Navigation() {
           >
             ✕
           </button>
-        </div>
-
-        {/* NOMINATE NOW button */}
-        <div style={{ padding: "20px 20px 8px" }}>
-          <Link
-            to="/nominate"
-            onClick={() => setDrawerOpen(false)}
-            style={{
-              display: "flex", alignItems: "center", justifyContent: "center",
-              width: "100%", padding: "14px",
-              background: "linear-gradient(135deg, #BF953F, #C9A84C, #B38728)",
-              color: "#000000", fontFamily: "'Raleway', sans-serif", fontWeight: 800,
-              fontSize: "13px", letterSpacing: "2px", textTransform: "uppercase",
-              borderRadius: "10px", textDecoration: "none",
-              boxShadow: "0 4px 15px rgba(201,168,76,0.35)",
-            }}
-          >
-            Nominate Now
-          </Link>
         </div>
 
         {/* Drawer nav links */}

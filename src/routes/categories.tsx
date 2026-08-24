@@ -1,10 +1,10 @@
-import { createFileRoute, Link } from "@tanstack/react-router";
+import { createFileRoute } from "@tanstack/react-router";
 import { Navigation } from "@/components/site/Navigation";
 import { Footer } from "@/components/site/Footer";
 import { GoldParticles } from "@/components/site/GoldParticles";
 import { CATEGORIES } from "@/lib/categories";
 import { useState } from "react";
-import { ChevronDown, ChevronUp, ArrowRight } from "lucide-react";
+import { ChevronDown, ChevronUp } from "lucide-react";
 
 export const Route = createFileRoute("/categories")({
   head: () => ({
@@ -40,16 +40,11 @@ function CategoriesPage() {
         <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,rgba(201,168,76,0.15),transparent_60%)]" />
         <div className="relative max-w-3xl mx-auto px-6 text-center">
           <p className="font-cinzel text-xs text-[#C9A84C] mb-3">BCS Ratna Award 2026</p>
-          <h1 className="font-display text-4xl md:text-6xl font-bold text-gold-gradient">Nomination Categories</h1>
+          <h1 className="font-display text-4xl md:text-6xl font-bold text-gold-gradient">Award Categories</h1>
           <div className="gold-divider" />
           <p className="text-white/60 mt-4 max-w-xl mx-auto text-sm leading-relaxed">
             {CATEGORIES.length} sectors · {totalCategories}+ award categories · Independent expert jury
           </p>
-          <div className="mt-6">
-            <Link to="/nominate" className="btn-gold inline-flex items-center gap-2">
-              Nominate Now <ArrowRight size={16} />
-            </Link>
-          </div>
         </div>
       </section>
 
@@ -147,34 +142,10 @@ function CategoriesPage() {
                   </div>
                 )}
 
-                {/* Nominate CTA */}
-                <div className="mt-6 pt-5 border-t border-[#C9A84C]/15 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3">
-                  <p className="text-white/50 text-sm">
-                    ₹<span className="text-[#C9A84C] font-bold text-base">11,800</span> per category · Inclusive of 18% GST
-                  </p>
-                  <Link to="/nominate" className="btn-gold text-sm px-6 py-3 whitespace-nowrap">
-                    Nominate in this Sector →
-                  </Link>
-                </div>
               </div>
             </div>
           );
         })()}
-      </div>
-
-      {/* Bottom CTA */}
-      <div className="max-w-3xl mx-auto px-6 pb-16 text-center">
-        <div className="glass-card p-8">
-          <h2 className="font-display text-2xl md:text-4xl font-bold text-gold-gradient mb-3">
-            Ready to Nominate?
-          </h2>
-          <p className="text-white/55 mb-6 text-sm leading-relaxed max-w-md mx-auto">
-            Select multiple categories across any sector in a single submission. ₹11,800 per category inclusive of GST.
-          </p>
-          <Link to="/nominate" className="btn-gold text-sm px-8 py-3 inline-flex items-center gap-2">
-            Start Nomination <ArrowRight size={15} />
-          </Link>
-        </div>
       </div>
 
       <Footer />
